@@ -1,6 +1,6 @@
 import React from 'react';
-import { FaLeaf, FaBee, FaTruck, FaAward, FaHeart, FaShieldAlt, FaSeedling } from 'react-icons/fa';
-import { GiHoneyJar, GiBeehive, GiFlowerPot } from 'react-icons/gi';
+import { FaLeaf, FaTruck, FaAward, FaHeart, FaShieldAlt } from 'react-icons/fa';
+import { GiBee, GiFlowerPot } from 'react-icons/gi';
 
 const About = () => {
   return (
