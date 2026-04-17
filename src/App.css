@@ -4549,3 +4549,443 @@ label .required-star {
     padding: 0.4rem;
   }
 }
+
+
+/* ============================================
+   Contact Page - تصميم عصري ومتطور
+   ============================================ */
+
+.contact-page {
+  padding: 4rem 8%;
+  min-height: 80vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #0f0f0f 100%);
+  margin-top: 80px;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* الحاوية الرئيسية */
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ========== قسم النموذج ========== */
+.contact-form {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 2rem;
+  border: 1px solid rgba(212, 160, 23, 0.2);
+  transition: all 0.3s;
+  animation: slideInRight 0.6s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.contact-form:hover {
+  border-color: rgba(212, 160, 23, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.contact-form h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #fff, #d4a017);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.contact-form h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #d4a017, #ffc107);
+  border-radius: 3px;
+}
+
+/* حقول الإدخال */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 1rem;
+  margin: 0.8rem 0;
+  border: 1px solid rgba(212, 160, 23, 0.25);
+  border-radius: 12px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #d4a017;
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.1);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* زر الإرسال */
+.contact-form .btn-primary {
+  width: 100%;
+  background: linear-gradient(135deg, #d4a017, #ffc107);
+  color: #000;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-form .btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s, height 0.5s;
+}
+
+.contact-form .btn-primary:hover::before {
+  width: 200px;
+  height: 200px;
+}
+
+.contact-form .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 160, 23, 0.4);
+}
+
+.contact-form .btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ========== قسم معلومات الاتصال ========== */
+.contact-info {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 2rem;
+  border: 1px solid rgba(212, 160, 23, 0.2);
+  transition: all 0.3s;
+  animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.contact-info:hover {
+  border-color: rgba(212, 160, 23, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.contact-info h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #d4a017;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+.contact-info h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 2px;
+  background: #d4a017;
+  border-radius: 2px;
+}
+
+/* معلومات الاتصال - الصفوف */
+.contact-info p {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  transition: all 0.3s;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-info p:hover {
+  background: rgba(212, 160, 23, 0.08);
+  transform: translateX(-5px);
+}
+
+.contact-info p svg {
+  color: #d4a017;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* ساعات العمل */
+.working-hours {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(212, 160, 23, 0.2);
+}
+
+.working-hours h4 {
+  color: #d4a017;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.working-hours p {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* وسائل التواصل الاجتماعي */
+.social-media {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(212, 160, 23, 0.2);
+}
+
+.social-media h4 {
+  color: #d4a017;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.3rem;
+  transition: all 0.3s;
+  border: 1px solid rgba(212, 160, 23, 0.2);
+}
+
+.social-icons a:hover {
+  background: #d4a017;
+  color: #000;
+  transform: translateY(-3px);
+  border-color: #d4a017;
+  box-shadow: 0 5px 15px rgba(212, 160, 23, 0.3);
+}
+
+/* أيقونات محددة لكل منصة */
+.social-icons a:nth-child(1):hover {
+  background: #1877f2;
+  border-color: #1877f2;
+  color: #fff;
+}
+
+.social-icons a:nth-child(2):hover {
+  background: radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  border-color: #d6249f;
+  color: #fff;
+}
+
+.social-icons a:nth-child(3):hover {
+  background: #1da1f2;
+  border-color: #1da1f2;
+  color: #fff;
+}
+
+/* ========== تأثيرات إضافية ========== */
+/* خريطة (اختيارية) */
+.map-container {
+  margin-top: 2rem;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 160, 23, 0.2);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 300px;
+  border: none;
+}
+
+/* ========== Responsive Design ========== */
+
+@media (max-width: 1024px) {
+  .contact-page {
+    padding: 3rem 5%;
+  }
+  
+  .contact-container {
+    gap: 2rem;
+  }
+  
+  .contact-form h2,
+  .contact-info h3 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-page {
+    padding: 2rem 4%;
+    margin-top: 120px;
+  }
+  
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .contact-form,
+  .contact-info {
+    padding: 1.5rem;
+  }
+  
+  .contact-form h2,
+  .contact-info h3 {
+    font-size: 1.5rem;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .contact-info p {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  .social-icons a {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-page {
+    padding: 1.5rem 3%;
+  }
+  
+  .contact-form,
+  .contact-info {
+    padding: 1rem;
+  }
+  
+  .contact-form h2,
+  .contact-info h3 {
+    font-size: 1.3rem;
+  }
+  
+  .contact-info p {
+    gap: 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .contact-info p svg {
+    font-size: 1rem;
+  }
+  
+  .working-hours h4,
+  .social-media h4 {
+    font-size: 1rem;
+  }
+  
+  .social-icons {
+    gap: 0.8rem;
+  }
+  
+  .social-icons a {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}
+
+/* تأثير التحميل */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(212, 160, 23, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(212, 160, 23, 0);
+  }
+}
+
+.btn-primary:focus {
+  animation: pulse 0.5s ease-out;
+}
+
+

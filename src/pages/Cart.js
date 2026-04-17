@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaTrash, FaShoppingCart, FaCreditCard, FaMoneyBillWave, FaCheckCircle, FaQrcode, FaLink, FaCopy, FaCheck, FaMobileAlt, FaDownload, FaEye, FaUpload, FaImage, FaTimes, FaExclamationTriangle, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import { FaTrash, FaShoppingCart, FaMoneyBillWave, FaCheckCircle, FaCopy, FaCheck, FaMobileAlt, FaDownload, FaEye, FaUpload, FaImage, FaTimes, FaExclamationTriangle, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import emailjs from '@emailjs/browser';
 
@@ -46,7 +46,7 @@ const Cart = () => {
 
   // بيانات التواصل
   const contactData = {
-    whatsapp: '201113105440', // بدون الصفر الأول مع كود الدولة
+    whatsapp: '201113105440',
     email: 'islam.99.hamdy@gmail.com'
   };
 
@@ -120,12 +120,12 @@ const Cart = () => {
       formData.append('image', base64Data);
       formData.append('key', IMGBB_API_KEY);
       
-      const response = await fetch('https://api.imgbb.com/1/upload', {
+      const uploadResponse = await fetch('https://api.imgbb.com/1/upload', {
         method: 'POST',
         body: formData
       });
       
-      const data = await response.json();
+      const data = await uploadResponse.json();
       
       if (data.success) {
         console.log('✅ تم رفع الصورة بنجاح:', data.data.url);
@@ -294,10 +294,10 @@ const Cart = () => {
   const validateInstapayForm = () => {
     const newErrors = {};
     
-    if (!instapayInfo.transactionId.trim()) {
+    if (!instapayInfo.transactionId?.trim()) {
       newErrors.transactionId = 'رقم المعاملة مطلوب';
     }
-    if (!instapayInfo.senderName.trim()) {
+    if (!instapayInfo.senderName?.trim()) {
       newErrors.senderName = 'اسم المرسل مطلوب';
     }
     if (!instapayInfo.amount) {
@@ -315,20 +315,20 @@ const Cart = () => {
   const validateShippingForm = () => {
     const newErrors = {};
     
-    if (!shippingInfo.fullName.trim()) {
+    if (!shippingInfo.fullName?.trim()) {
       newErrors.fullName = 'الاسم الكامل مطلوب';
     }
-    if (!shippingInfo.phone.trim()) {
+    if (!shippingInfo.phone?.trim()) {
       newErrors.phone = 'رقم الهاتف مطلوب';
     } else if (!/^[\d\s\-+()]+$/.test(shippingInfo.phone)) {
       newErrors.phone = 'رقم هاتف غير صحيح';
     }
-    if (!shippingInfo.email.trim()) {
+    if (!shippingInfo.email?.trim()) {
       newErrors.email = 'البريد الإلكتروني مطلوب';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(shippingInfo.email)) {
       newErrors.email = 'بريد إلكتروني غير صحيح';
     }
-    if (!shippingInfo.address.trim()) {
+    if (!shippingInfo.address?.trim()) {
       newErrors.address = 'العنوان مطلوب';
     }
     
