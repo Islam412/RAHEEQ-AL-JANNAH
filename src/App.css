@@ -916,3 +916,219 @@ h1, h2, h3 {
   font-size: 1.5rem;
   min-height: 60vh;
 }
+
+/* صفحة عن العسل - About Page */
+.about-page {
+  padding: 4rem 8%;
+  min-height: 80vh;
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.about-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.about-content h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 1rem;
+  color: #d4a017;
+}
+
+.about-intro {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.about-content p {
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1rem;
+}
+
+/* أنواع العسل - Badges */
+.honey-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.type-badge {
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.2), rgba(212, 160, 23, 0.05));
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.type-badge:hover {
+  background: rgba(212, 160, 23, 0.3);
+  transform: translateY(-2px);
+  border-color: #d4a017;
+}
+
+/* قائمة الفوائد */
+.benefits-list {
+  list-style: none;
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+
+.benefits-list li {
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  transition: transform 0.3s;
+}
+
+.benefits-list li:hover {
+  transform: translateX(-5px);
+  color: #d4a017;
+}
+
+.benefits-list li svg {
+  color: #d4a017;
+  font-size: 1rem;
+}
+
+/* الإحصائيات */
+.stats {
+  display: flex;
+  gap: 1.5rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.stats div {
+  text-align: center;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  flex: 1;
+  transition: all 0.3s;
+  border: 1px solid rgba(212, 160, 23, 0.2);
+}
+
+.stats div:hover {
+  transform: translateY(-5px);
+  background: rgba(212, 160, 23, 0.1);
+  border-color: #d4a017;
+}
+
+.stats span {
+  font-size: 2rem;
+  color: #d4a017;
+  display: block;
+  font-weight: bold;
+}
+
+/* شارات الجودة */
+.quality-badges {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.quality-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(212, 160, 23, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+}
+
+.quality-item svg {
+  color: #d4a017;
+  font-size: 1.1rem;
+}
+
+/* قسم الصور */
+.about-img {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-img img {
+  width: 100%;
+  border-radius: 20px;
+  transition: transform 0.4s;
+  cursor: pointer;
+}
+
+.about-img img:hover {
+  transform: scale(1.02);
+}
+
+/* اقتباس (حديث نبوي) */
+.quote {
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.1), rgba(212, 160, 23, 0.05));
+  border-right: 3px solid #d4a017;
+  padding: 1.5rem;
+  border-radius: 15px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.quote-icon {
+  font-size: 2rem;
+  color: #d4a017;
+  margin-bottom: 0.5rem;
+}
+
+.quote p {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0.5rem;
+}
+
+.quote span {
+  font-size: 0.9rem;
+  color: #d4a017;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .benefits-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats {
+    flex-wrap: wrap;
+  }
+  
+  .stats div {
+    min-width: 120px;
+  }
+  
+  .about-content h2 {
+    font-size: 1.8rem;
+  }
+  
+  .honey-types {
+    justify-content: center;
+  }
+}
