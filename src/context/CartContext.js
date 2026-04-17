@@ -1,19 +1,36 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const CartContext = createContext();
 
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  // تحميل المنتجات من localStorage عند بدء التشغيل
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCart = localStorage.getItem('cartItems');
+    if (savedCart) {
+      try {
+        return JSON.parse(savedCart);
+      } catch (e) {
+        return [];
+      }
+    }
+    return [];
+  });
+
+  // حفظ المنتجات في localStorage كلما تغيرت
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (product) => {
     setCartItems(prev => {
       const existing = prev.find(item => item.id === product.id);
       if (existing) {
-        return prev.map(item =>
+        const updated = prev.map(item =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
+        return updated;
       }
       return [...prev, { ...product, quantity: 1 }];
     });
@@ -41,6 +58,12 @@ export const CartProvider = ({ children }) => {
     return cartItems.reduce((count, item) => count + item.quantity, 0);
   };
 
+  // إفراغ السلة بعد إتمام الشراء
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem('cartItems');
+  };
+
   return (
     <CartContext.Provider value={{
       cartItems,
@@ -48,7 +71,8 @@ export const CartProvider = ({ children }) => {
       removeFromCart,
       updateQuantity,
       getCartTotal,
-      getCartCount
+      getCartCount,
+      clearCart
     }}>
       {children}
     </CartContext.Provider>
