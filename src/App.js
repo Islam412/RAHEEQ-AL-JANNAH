@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
+import emailjs from '@emailjs/browser';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -12,9 +13,15 @@ import Cart from './pages/Cart';
 import OrderSuccess from './pages/OrderSuccess';
 import './App.css';
 
+// EmailJS Public Key - من حسابك
+const EMAILJS_PUBLIC_KEY = 'swj1iOERZySazluZs';
+
 function App() {
-  // Scroll reveal effect
   useEffect(() => {
+    // تهيئة EmailJS
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+    
+    // Scroll reveal effect
     const revealElements = document.querySelectorAll('.reveal');
     
     const revealOnScroll = () => {
