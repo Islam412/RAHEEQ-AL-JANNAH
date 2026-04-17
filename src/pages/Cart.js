@@ -1,7 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaTrash, FaShoppingCart, FaCreditCard, FaMoneyBillWave, FaCheckCircle, FaQrcode, FaLink, FaCopy, FaCheck, FaMobileAlt, FaDownload, FaEye, FaUpload, FaImage, FaTimes, FaExclamationTriangle } from 'react-icons/fa';
+import { FaTrash, FaShoppingCart, FaCreditCard, FaMoneyBillWave, FaCheckCircle, FaQrcode, FaLink, FaCopy, FaCheck, FaMobileAlt, FaDownload, FaEye, FaUpload, FaImage, FaTimes, FaExclamationTriangle, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
+
+// ============================================
+// Green API Configuration - بيانات حسابك
+// ============================================
+const GREEN_API_ID = '7107591808';
+const GREEN_API_TOKEN = '491a6704c76496e80c11a32df08da90775e4c3163b24';
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
@@ -14,6 +20,7 @@ const Cart = () => {
   const [paymentImage, setPaymentImage] = useState(null);
   const [paymentImagePreview, setPaymentImagePreview] = useState(null);
   const [errors, setErrors] = useState({});
+  const [isSending, setIsSending] = useState(false);
   const fileInputRef = useRef(null);
   
   // بيانات إنستا باي
@@ -22,6 +29,12 @@ const Cart = () => {
     phone: '01027368824',
     link: 'https://ipn.eg/S/islam_hamdy12/instapay/7mgqjZ',
     qrImageUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://ipn.eg/S/islam_hamdy12/instapay/7mgqjZ',
+  };
+
+  // بيانات التواصل
+  const contactData = {
+    whatsapp: '201113105440', // بدون الصفر الأول مع كود الدولة
+    email: 'islam.99.hamdy@gmail.com'
   };
 
   // بيانات نموذج الدفع
@@ -43,9 +56,157 @@ const Cart = () => {
   const shippingCost = getCartTotal() > 200 ? 0 : 10;
   const finalTotal = getCartTotal() + shippingCost;
 
+  // إنشاء رسالة الطلب للتنسيق النصي
+  const createOrderMessageText = () => {
+    const orderDate = new Date().toLocaleString('ar-EG');
+    const productsList = cartItems.map(item => 
+      `• ${item.name} × ${item.quantity} = $${(parseFloat(item.price) * item.quantity).toFixed(2)}`
+    ).join('\n');
+    
+    let message = `🛍️ *طلب جديد من موقع رحيق الجنة*\n\n`;
+    message += `📅 *تاريخ الطلب:* ${orderDate}\n`;
+    message += `💰 *طريقة الدفع:* ${paymentMethod === 'cash' ? 'الدفع عند الاستلام' : 'إنستا باي'}\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+    message += `📦 *المنتجات:*\n${productsList}\n\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `💵 *المجموع الفرعي:* $${getCartTotal().toFixed(2)}\n`;
+    message += `🚚 *الشحن:* ${shippingCost === 0 ? 'مجاني' : `$${shippingCost}`}\n`;
+    message += `💰 *الإجمالي:* $${finalTotal.toFixed(2)}\n\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+    message += `👤 *معلومات العميل:*\n`;
+    message += `• الاسم: ${shippingInfo.fullName}\n`;
+    message += `• الهاتف: ${shippingInfo.phone}\n`;
+    message += `• البريد: ${shippingInfo.email}\n`;
+    message += `• العنوان: ${shippingInfo.address}\n\n`;
+    
+    if (paymentMethod === 'instapay') {
+      message += `━━━━━━━━━━━━━━━━━━━━\n`;
+      message += `💳 *معلومات التحويل (إنستا باي):*\n`;
+      message += `• اسم المرسل: ${instapayInfo.senderName}\n`;
+      message += `• المبلغ المحول: $${instapayInfo.amount}\n`;
+      message += `• رقم المعاملة: ${instapayInfo.transactionId}\n`;
+    }
+    
+    message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `✨ *شكراً لتسوقك مع رحيق الجنة* ✨`;
+    
+    return message;
+  };
+
+  // إنشاء رسالة البريد الإلكتروني
+  const createEmailBody = () => {
+    const orderDate = new Date().toLocaleString('ar-EG');
+    const productsList = cartItems.map(item => 
+      `${item.name} × ${item.quantity} = $${(parseFloat(item.price) * item.quantity).toFixed(2)}`
+    ).join('\n');
+    
+    let emailBody = `طلب جديد من موقع رحيق الجنة\n`;
+    emailBody += `================================\n\n`;
+    emailBody += `تاريخ الطلب: ${orderDate}\n`;
+    emailBody += `طريقة الدفع: ${paymentMethod === 'cash' ? 'الدفع عند الاستلام' : 'إنستا باي'}\n\n`;
+    emailBody += `المنتجات:\n${productsList}\n\n`;
+    emailBody += `المجموع الفرعي: $${getCartTotal().toFixed(2)}\n`;
+    emailBody += `الشحن: ${shippingCost === 0 ? 'مجاني' : `$${shippingCost}`}\n`;
+    emailBody += `الإجمالي: $${finalTotal.toFixed(2)}\n\n`;
+    emailBody += `معلومات العميل:\n`;
+    emailBody += `الاسم: ${shippingInfo.fullName}\n`;
+    emailBody += `الهاتف: ${shippingInfo.phone}\n`;
+    emailBody += `البريد: ${shippingInfo.email}\n`;
+    emailBody += `العنوان: ${shippingInfo.address}\n\n`;
+    
+    if (paymentMethod === 'instapay') {
+      emailBody += `معلومات التحويل (إنستا باي):\n`;
+      emailBody += `اسم المرسل: ${instapayInfo.senderName}\n`;
+      emailBody += `المبلغ المحول: $${instapayInfo.amount}\n`;
+      emailBody += `رقم المعاملة: ${instapayInfo.transactionId}\n`;
+    }
+    
+    return emailBody;
+  };
+
+  // ============================================
+  // إرسال إلى واتساب تلقائياً عبر Green API
+  // ============================================
+  const sendToWhatsAppAuto = async () => {
+    const message = createOrderMessageText();
+    const chatId = `${contactData.whatsapp}@c.us`;
+    
+    const url = `https://api.green-api.com/waInstance${GREEN_API_ID}/sendMessage/${GREEN_API_TOKEN}`;
+    
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          chatId: chatId,
+          message: message
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.idMessage) {
+        console.log('✅ تم إرسال الطلب إلى واتساب بنجاح');
+        return true;
+      } else {
+        console.log('❌ فشل الإرسال:', data);
+        return false;
+      }
+    } catch (error) {
+      console.error('خطأ في Green API:', error);
+      return false;
+    }
+  };
+
+  // ============================================
+  // إرسال صورة الإيصال إلى واتساب
+  // ============================================
+  const sendImageToWhatsApp = async (imageBase64) => {
+    const chatId = `${contactData.whatsapp}@c.us`;
+    
+    const url = `https://api.green-api.com/waInstance${GREEN_API_ID}/sendFileByUrl/${GREEN_API_TOKEN}`;
+    
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          chatId: chatId,
+          urlFile: imageBase64,
+          fileName: 'receipt.jpg',
+          caption: '📸 إيصال الدفع - رحيق الجنة'
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.idMessage) {
+        console.log('✅ تم إرسال صورة الإيصال بنجاح');
+        return true;
+      }
+    } catch (error) {
+      console.error('خطأ في إرسال الصورة:', error);
+    }
+    return false;
+  };
+
+  // إرسال إلى البريد الإلكتروني
+  const sendToEmailAuto = async () => {
+    const emailBody = createEmailBody();
+    const subject = `طلب جديد من ${shippingInfo.fullName} - رحيق الجنة`;
+    
+    const mailtoUrl = `mailto:${contactData.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+    window.open(mailtoUrl, '_blank');
+    
+    return true;
+  };
+
   const handleCheckout = () => {
     setShowCheckoutModal(true);
-    // إعادة تعيين الأخطاء عند فتح المودال
     setErrors({});
   };
 
@@ -62,12 +223,10 @@ const Cart = () => {
     link.click();
   };
 
-  // معالجة رفع صورة الدفع
   const handlePaymentImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       if (file.type.startsWith('image/')) {
-        // التحقق من حجم الملف (حد أقصى 5MB)
         if (file.size > 5 * 1024 * 1024) {
           setErrors({...errors, paymentImage: 'حجم الصورة كبير جداً (الحد الأقصى 5MB)'});
           return;
@@ -79,7 +238,6 @@ const Cart = () => {
         };
         reader.readAsDataURL(file);
         setInstapayInfo({...instapayInfo, paymentProof: file});
-        // إزالة الخطأ عند رفع الصورة
         setErrors({...errors, paymentImage: null});
       } else {
         setErrors({...errors, paymentImage: 'الرجاء رفع ملف صورة صالح (jpg, png, jpeg)'});
@@ -96,7 +254,6 @@ const Cart = () => {
     }
   };
 
-  // التحقق من صحة البيانات
   const validateInstapayForm = () => {
     const newErrors = {};
     
@@ -141,22 +298,19 @@ const Cart = () => {
     return newErrors;
   };
 
-  const confirmOrder = () => {
+  const confirmOrder = async () => {
     let allErrors = {};
     
     if (paymentMethod === 'instapay') {
-      // التحقق من بيانات إنستا باي
       const instapayErrors = validateInstapayForm();
       allErrors = { ...allErrors, ...instapayErrors };
     }
     
-    // التحقق من بيانات الشحن (لجميع طرق الدفع)
     const shippingErrors = validateShippingForm();
     allErrors = { ...allErrors, ...shippingErrors };
     
     if (Object.keys(allErrors).length > 0) {
       setErrors(allErrors);
-      // التمرير إلى أول خطأ
       const firstError = document.querySelector('.error-message');
       if (firstError) {
         firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -164,28 +318,55 @@ const Cart = () => {
       return;
     }
     
-    setOrderComplete(true);
+    setIsSending(true);
+    
+    // حفظ الطلب في localStorage
+    const orderData = {
+      orderId: Date.now(),
+      orderDate: new Date().toISOString(),
+      products: cartItems,
+      total: finalTotal,
+      paymentMethod: paymentMethod,
+      shippingInfo: shippingInfo,
+      instapayInfo: paymentMethod === 'instapay' ? instapayInfo : null,
+      status: 'pending'
+    };
+    
+    localStorage.setItem('lastOrder', JSON.stringify(orderData));
+    
+    // إرسال الرسالة إلى واتساب
+    await sendToWhatsAppAuto();
+    
+    // إذا كان الدفع عبر إنستا باي، أرسل صورة الإيصال أيضاً
+    if (paymentMethod === 'instapay' && paymentImagePreview) {
+      await sendImageToWhatsApp(paymentImagePreview);
+    }
+    
+    // إرسال إلى البريد الإلكتروني
+    await sendToEmailAuto();
+    
     setTimeout(() => {
-      clearCart();
-      setShowCheckoutModal(false);
-      setOrderComplete(false);
-      navigate('/order-success');
-    }, 2000);
+      setOrderComplete(true);
+      setTimeout(() => {
+        clearCart();
+        setShowCheckoutModal(false);
+        setOrderComplete(false);
+        setIsSending(false);
+        navigate('/order-success');
+      }, 2000);
+    }, 1000);
   };
 
-  // تحديث بيانات الشحن
   const handleShippingChange = (e) => {
     setShippingInfo({
       ...shippingInfo,
       [e.target.name]: e.target.value
     });
-    // إزالة الخطأ عند الكتابة
     if (errors[e.target.name]) {
       setErrors({...errors, [e.target.name]: null});
     }
   };
 
-  // تحديث بيانات إنستا باي
   const handleInstapayChange = (e) => {
     setInstapayInfo({
       ...instapayInfo,
@@ -354,7 +535,7 @@ const Cart = () => {
                     </label>
                   </div>
 
-                  {/* بيانات إنستا باي مع الصورة - تظهر فقط عند اختيار إنستا باي */}
+                  {/* بيانات إنستا باي مع الصورة */}
                   {paymentMethod === 'instapay' && (
                     <div className="instapay-section">
                       <div className="instapay-header">
@@ -477,7 +658,7 @@ const Cart = () => {
                         </div>
                       </div>
 
-                      {/* رفع صورة الدفع - إلزامي */}
+                      {/* رفع صورة الدفع */}
                       <div className="payment-proof-section">
                         <h4>📸 إيصال الدفع <span className="required-star">*</span></h4>
                         <p className="proof-note">الرجاء رفع صورة واضحة لإيصال الدفع أو لقطة شاشة لعملية التحويل</p>
@@ -566,14 +747,27 @@ const Cart = () => {
                 </div>
                 <div className="modal-footer">
                   <button className="btn-cancel" onClick={() => setShowCheckoutModal(false)}>إلغاء</button>
-                  <button className="btn-confirm" onClick={confirmOrder}>تأكيد الطلب</button>
+                  <button className="btn-confirm" onClick={confirmOrder} disabled={isSending}>
+                    {isSending ? 'جاري الإرسال...' : 'تأكيد الطلب'}
+                  </button>
                 </div>
               </>
             ) : (
               <div className="order-success">
                 <FaCheckCircle />
                 <h3>تم استلام طلبك بنجاح!</h3>
-                <p>شكراً لتسوقك معنا. سيتم مراجعة إيصال الدفع وتأكيد طلبك خلال 24 ساعة.</p>
+                <p>شكراً لتسوقك معنا. تم إرسال تفاصيل الطلب إلى:</p>
+                <div className="contact-sent">
+                  <div className="contact-sent-item">
+                    <FaWhatsapp />
+                    <span>واتساب: {contactData.whatsapp}</span>
+                  </div>
+                  <div className="contact-sent-item">
+                    <FaEnvelope />
+                    <span>البريد: {contactData.email}</span>
+                  </div>
+                </div>
+                <p>سيتم مراجعة طلبك والتواصل معك قريباً.</p>
                 <div className="loading-spinner"></div>
                 <p className="redirecting">جاري التحويل...</p>
               </div>
