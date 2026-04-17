@@ -178,9 +178,9 @@ const Cart = () => {
                         onChange={(e) => setPaymentMethod(e.target.value)}
                       />
                       <FaCreditCard />
-                      <span>بطاقة ائتمان</span>
+                      <span>إنستا باي</span>
                     </label>
-                    <label className={`payment-method ${paymentMethod === 'paypal' ? 'selected' : ''}`}>
+                    {/* <label className={`payment-method ${paymentMethod === 'paypal' ? 'selected' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
@@ -190,7 +190,7 @@ const Cart = () => {
                       />
                       <FaPaypal />
                       <span>باي بال</span>
-                    </label>
+                    </label> */}
                   </div>
 
                   <h4>معلومات الشحن</h4>
