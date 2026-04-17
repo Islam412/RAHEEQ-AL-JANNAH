@@ -4139,3 +4139,413 @@ label .required-star {
   color: #d4a017;
   margin-bottom: 1rem;
 }
+
+
+/* ============================================
+   About Page - تصميم عصري ومتناسق مع الموقع
+   ============================================ */
+
+.about-page {
+  padding: 4rem 8%;
+  min-height: 80vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #0f0f0f 100%);
+  margin-top: 80px;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* الحاوية الرئيسية */
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+/* ========== القسم الأيمن (المحتوى) ========== */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* العنوان الرئيسي */
+.about-content h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, #d4a017, #ffc107);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.about-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  right: 0;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, #d4a017, transparent);
+  border-radius: 3px;
+}
+
+.about-intro {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(212, 160, 23, 0.15);
+}
+
+/* العناوين الفرعية */
+.about-content h3 {
+  color: #d4a017;
+  font-size: 1.3rem;
+  margin: 0.5rem 0 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.about-content h3 svg {
+  font-size: 1.4rem;
+}
+
+/* النصوص */
+.about-content p {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.8;
+  margin-bottom: 0.5rem;
+}
+
+/* ========== أنواع العسل - Badges ========== */
+.honey-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.type-badge {
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.15), rgba(212, 160, 23, 0.05));
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  padding: 0.6rem 1.2rem;
+  border-radius: 40px;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.type-badge:hover {
+  background: rgba(212, 160, 23, 0.3);
+  transform: translateY(-3px);
+  border-color: #d4a017;
+  box-shadow: 0 5px 15px rgba(212, 160, 23, 0.2);
+}
+
+/* ========== قائمة الفوائد ========== */
+.benefits-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.benefits-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.85rem;
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.benefits-list li:hover {
+  transform: translateX(-5px);
+  background: rgba(212, 160, 23, 0.1);
+  color: #d4a017;
+}
+
+.benefits-list li svg {
+  color: #d4a017;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* ========== الإحصائيات ========== */
+.stats {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+.stats > div {
+  text-align: center;
+  font-weight: bold;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  padding: 1rem 1.2rem;
+  border-radius: 15px;
+  flex: 1;
+  min-width: 100px;
+  transition: all 0.3s;
+  border: 1px solid rgba(212, 160, 23, 0.2);
+}
+
+.stats > div:hover {
+  transform: translateY(-5px);
+  background: rgba(212, 160, 23, 0.1);
+  border-color: #d4a017;
+  box-shadow: 0 10px 25px rgba(212, 160, 23, 0.15);
+}
+
+.stats span {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #d4a017, #ffc107);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* ========== شارات الجودة ========== */
+.quality-badges {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.quality-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(212, 160, 23, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.quality-item:hover {
+  background: #d4a017;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.quality-item svg {
+  color: #d4a017;
+  transition: all 0.3s;
+}
+
+.quality-item:hover svg {
+  color: #000;
+}
+
+/* ========== القسم الأيسر (الصور) ========== */
+.about-img {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.about-img img {
+  width: 100%;
+  border-radius: 20px;
+  transition: all 0.4s;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(212, 160, 23, 0.2);
+}
+
+.about-img img:hover {
+  transform: scale(1.02);
+  border-color: #d4a017;
+  box-shadow: 0 15px 35px rgba(212, 160, 23, 0.2);
+}
+
+/* الاقتباس (حديث نبوي) */
+.quote {
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.1), rgba(212, 160, 23, 0.05));
+  border-right: 3px solid #d4a017;
+  padding: 1.5rem;
+  border-radius: 15px;
+  text-align: center;
+  margin-top: 0.5rem;
+  transition: all 0.3s;
+}
+
+.quote:hover {
+  background: rgba(212, 160, 23, 0.12);
+  transform: translateX(-3px);
+}
+
+.quote-icon {
+  font-size: 2rem;
+  color: #d4a017;
+  margin-bottom: 0.5rem;
+  animation: beeFloat 3s ease-in-out infinite;
+}
+
+@keyframes beeFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(5deg); }
+}
+
+.quote p {
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.quote span {
+  font-size: 0.85rem;
+  color: #d4a017;
+  font-weight: 500;
+}
+
+/* ========== تأثيرات إضافية ========== */
+/* شريط التمرير المخصص */
+.about-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.about-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.about-content::-webkit-scrollbar-thumb {
+  background: #d4a017;
+  border-radius: 10px;
+}
+
+/* ========== Responsive Design ========== */
+
+@media (max-width: 1024px) {
+  .about-page {
+    padding: 3rem 5%;
+  }
+  
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .about-img {
+    order: -1;
+  }
+  
+  .about-img img {
+    max-height: 250px;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    padding: 2rem 4%;
+    margin-top: 120px;
+  }
+  
+  .about-content h2 {
+    font-size: 1.8rem;
+  }
+  
+  .about-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .benefits-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats {
+    gap: 0.8rem;
+  }
+  
+  .stats > div {
+    padding: 0.8rem;
+    min-width: 80px;
+  }
+  
+  .stats span {
+    font-size: 1.5rem;
+  }
+  
+  .honey-types {
+    justify-content: center;
+  }
+  
+  .type-badge {
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
+  }
+  
+  .quality-badges {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-page {
+    padding: 1.5rem 3%;
+  }
+  
+  .about-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .about-intro {
+    font-size: 0.85rem;
+    padding: 1rem;
+  }
+  
+  .stats {
+    flex-wrap: wrap;
+  }
+  
+  .stats > div {
+    flex: calc(50% - 0.8rem);
+    min-width: auto;
+  }
+  
+  .quote p {
+    font-size: 0.85rem;
+  }
+  
+  .benefits-list li {
+    font-size: 0.8rem;
+    padding: 0.4rem;
+  }
+}
