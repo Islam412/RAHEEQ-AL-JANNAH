@@ -141,7 +141,7 @@ const Cart = () => {
   };
 
   // ============================================
-  // إرسال إلى واتساب عبر Green API
+  // إرسال إلى واتساب عبر Green API (تم التعديل)
   // ============================================
   const sendToWhatsAppAuto = async () => {
     const message = createOrderMessageText();
@@ -150,13 +150,13 @@ const Cart = () => {
     const url = `https://api.green-api.com/waInstance${GREEN_API_ID}/sendMessage/${GREEN_API_TOKEN}`;
     
     try {
-      const response = await fetch(url, {
+      const _response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chatId: chatId, message: message })
       });
       
-      const data = await response.json();
+      const data = await _response.json();
       
       if (data.idMessage) {
         console.log('✅ تم إرسال الطلب إلى واتساب بنجاح');
@@ -170,7 +170,7 @@ const Cart = () => {
   };
 
   // ============================================
-  // إرسال صورة الإيصال إلى واتساب
+  // إرسال صورة الإيصال إلى واتساب (تم التعديل)
   // ============================================
   const sendImageToWhatsApp = async (imageUrl) => {
     const chatId = `${contactData.whatsapp}@c.us`;
@@ -178,7 +178,7 @@ const Cart = () => {
     const url = `https://api.green-api.com/waInstance${GREEN_API_ID}/sendFileByUrl/${GREEN_API_TOKEN}`;
     
     try {
-      const response = await fetch(url, {
+      const _response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -189,7 +189,7 @@ const Cart = () => {
         })
       });
       
-      const data = await response.json();
+      const data = await _response.json();
       
       if (data.idMessage) {
         console.log('✅ تم إرسال صورة الإيصال بنجاح');
@@ -228,13 +228,13 @@ const Cart = () => {
     };
     
     try {
-      const response = await emailjs.send(
+      const emailResponse = await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         templateParams,
         EMAILJS_PUBLIC_KEY
       );
-      console.log('✅ تم إرسال الإيميل بنجاح!');
+      console.log('✅ تم إرسال الإيميل بنجاح!', emailResponse);
       return true;
     } catch (error) {
       console.error('❌ فشل إرسال الإيميل:', error);
