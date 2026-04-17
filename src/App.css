@@ -3197,3 +3197,413 @@ h1, h2, h3 {
     word-break: break-all;
   }
 }
+
+/* ============================================
+   InstaPay QR Code Styles
+   ============================================ */
+
+.instapay-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.instapay-header h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #a855f7;
+}
+
+.instapay-badge {
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  color: white;
+}
+
+.instapay-card {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.instapay-qr-section {
+  flex: 1;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 15px;
+}
+
+.qr-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.qr-code-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 15px;
+  background: white;
+  padding: 0.5rem;
+  transition: transform 0.3s;
+}
+
+.qr-code-image:hover {
+  transform: scale(1.02);
+}
+
+.qr-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+.qr-container:hover .qr-overlay {
+  opacity: 1;
+}
+
+.qr-overlay svg {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.qr-overlay span {
+  color: white;
+  font-size: 0.7rem;
+}
+
+.qr-actions {
+  margin-top: 0.8rem;
+}
+
+.qr-download-btn {
+  background: rgba(168, 85, 247, 0.2);
+  border: 1px solid #a855f7;
+  color: #a855f7;
+  padding: 0.4rem 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.qr-download-btn:hover {
+  background: #a855f7;
+  color: white;
+}
+
+.qr-note {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.5rem;
+}
+
+.instapay-info-section {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 15px;
+}
+
+.instapay-steps {
+  background: rgba(168, 85, 247, 0.05);
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 1rem 0;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.instapay-steps h5 {
+  color: #a855f7;
+  margin-bottom: 0.5rem;
+}
+
+.instapay-steps ol {
+  margin: 0;
+  padding-right: 1.2rem;
+}
+
+.instapay-steps li {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  margin: 0.3rem 0;
+}
+
+.instapay-steps strong {
+  color: #a855f7;
+}
+
+/* مودال تكبير QR Code */
+.qr-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-modal-content {
+  text-align: center;
+  background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+  padding: 2rem;
+  border-radius: 25px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  position: relative;
+  max-width: 500px;
+}
+
+.qr-modal-content img {
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+  background: white;
+  padding: 1rem;
+}
+
+.qr-modal-content p {
+  color: #a855f7;
+  margin: 1rem 0;
+}
+
+.qr-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.qr-modal-close:hover {
+  color: #a855f7;
+  transform: rotate(90deg);
+}
+
+.qr-download-btn-large {
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  border: none;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.qr-download-btn-large:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .instapay-card {
+    flex-direction: column;
+  }
+  
+  .qr-code-image {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .qr-modal-content img {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .instapay-steps ol {
+    padding-right: 1rem;
+  }
+}
+
+/* ============================================
+   رفع صورة الدفع - Payment Proof Upload
+   ============================================ */
+
+.payment-proof-section {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+}
+
+.payment-proof-section h4 {
+  color: #d4a017;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.proof-note {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 1rem;
+}
+
+.upload-area {
+  border: 2px dashed rgba(212, 160, 23, 0.3);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: rgba(212, 160, 23, 0.05);
+}
+
+.upload-area:hover {
+  border-color: #d4a017;
+  background: rgba(212, 160, 23, 0.1);
+}
+
+.upload-area svg {
+  font-size: 2.5rem;
+  color: #d4a017;
+  margin-bottom: 0.5rem;
+}
+
+.upload-area p {
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0.5rem 0;
+}
+
+.upload-area span {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.payment-preview {
+  text-align: center;
+}
+
+.payment-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  margin-bottom: 0.8rem;
+}
+
+.payment-preview-actions {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.change-image-btn, .remove-image-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  border: none;
+}
+
+.change-image-btn {
+  background: rgba(212, 160, 23, 0.2);
+  color: #d4a017;
+}
+
+.change-image-btn:hover {
+  background: #d4a017;
+  color: #000;
+}
+
+.remove-image-btn {
+  background: rgba(255, 68, 68, 0.2);
+  color: #ff4444;
+}
+
+.remove-image-btn:hover {
+  background: #ff4444;
+  color: #fff;
+}
+
+/* تحسينات إضافية لـ QR Code */
+.qr-powered {
+  font-size: 0.65rem;
+  color: rgba(168, 85, 247, 0.6);
+  margin-top: 0.2rem;
+}
+
+.qr-note {
+  font-size: 0.75rem;
+  color: #a855f7;
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+/* تحسين المودال */
+.modal-body {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: #d4a017;
+  border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .upload-area {
+    padding: 1rem;
+  }
+  
+  .upload-area svg {
+    font-size: 1.8rem;
+  }
+  
+  .payment-preview img {
+    max-height: 150px;
+  }
+  
+  .payment-preview-actions {
+    flex-direction: column;
+  }
+}
