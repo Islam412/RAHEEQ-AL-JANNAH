@@ -189,7 +189,7 @@ nav a:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('https://images.pexels.com/photos/16678344/pexels-photo-16678344/free-photo-of-white-clover-flowers.jpeg?auto=compress&cs=tinysrgb&w=1600');
+  background: url('/public/images/photo.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
