@@ -6,10 +6,10 @@ import { FaTruck, FaAward, FaStar } from 'react-icons/fa';
 const Home = () => {
   // عرض أفضل 3 منتجات في الصفحة الرئيسية
   const featuredProducts = [
-    { id: 1, name: 'عسل حبة البركة', price: '400ج.م', image: 'https://images.pexels.com/photos/6010455/pexels-photo-6010455.jpeg?auto=compress&cs=tinysrgb&w=600', rating: 5 },
-    { id: 7, name: 'عسل سدر جبل مصري', price: '1200ج.م', image: 'https://images.pexels.com/photos/16678344/pexels-photo-16678344/free-photo-of-white-clover-flowers.jpeg?auto=compress&cs=tinysrgb&w=600', rating: 5 },
-    { id: 6, name: 'عسل الزعتر', price: '330ج.م', image: 'https://images.pexels.com/photos/6133802/pexels-photo-6133802.jpeg?auto=compress&cs=tinysrgb&w=600', rating: 5 },
-    { id: 2, name: 'عسل الموالح', price: '400ج.م', image: 'https://images.pexels.com/photos/6133802/pexels-photo-6133802.jpeg?auto=compress&cs=tinysrgb&w=600', rating: 5 },
+    { id: 7, name: 'عسل سدر جبل مصري', price: '1200ج.م', image: 'images/barkadosh.png', rating: 5 },
+    { id: 1, name: 'عسل حبة البركة', price: '400ج.م', image: 'images/barka.png', rating: 5 },
+    { id: 2, name: 'عسل الموالح', price: '400ج.م', image: 'images/mwaleh.png', rating: 5 },
+    { id: 6, name: 'عسل الزعتر', price: '330ج.م', image: 'images/zahter.png', rating: 5 },
   ];
 
   return (
