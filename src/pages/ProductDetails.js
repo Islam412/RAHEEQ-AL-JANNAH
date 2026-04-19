@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {  FaTruck, FaShieldAlt, FaLeaf, FaHeart, FaShare } from 'react-icons/fa';
+import { FaStar, FaTruck, FaShieldAlt, FaUndo, FaLeaf, FaHeart, FaShare } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 
 const ProductDetails = () => {

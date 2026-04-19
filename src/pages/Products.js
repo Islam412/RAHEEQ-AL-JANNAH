@@ -106,7 +106,7 @@ const Products = () => {
                 <span className="old">E£ {product.oldPrice}</span>
               </div>
               <div className="product-buttons">
-                <Link to={`/product/E£ {product.id}`}>
+                <Link to={`/product/${product.id}`}>
                   <button className="btn-details">تفاصيل</button>
                 </Link>
                 <button onClick={() => addToCart(product)} className="btn-add">أضف للسلة</button>
