@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import emailjs from '@emailjs/browser';
 import Header from './components/Header';
@@ -16,15 +16,27 @@ import './App.css';
 // EmailJS Public Key - من حسابك
 const EMAILJS_PUBLIC_KEY = 'swj1iOERZySazluZs';
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    
+    // Trigger reveal immediately after scroll reset for new pages
+    setTimeout(() => {
+      window.dispatchEvent(new Event('scroll'));
+    }, 100);
+  }, [pathname]);
+  return null;
+};
+
 function App() {
   useEffect(() => {
     // تهيئة EmailJS
     emailjs.init(EMAILJS_PUBLIC_KEY);
     
     // Scroll reveal effect
-    const revealElements = document.querySelectorAll('.reveal');
-    
     const revealOnScroll = () => {
+      const revealElements = document.querySelectorAll('.reveal');
       revealElements.forEach(element => {
         const windowHeight = window.innerHeight;
         const elementTop = element.getBoundingClientRect().top;
@@ -44,6 +56,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <CartProvider>
         <div className="app">
           <Header />

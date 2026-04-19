@@ -423,7 +423,9 @@ const Cart = () => {
   if (cartItems.length === 0 && !orderComplete) {
     return (
       <div className="cart-empty">
-        <FaShoppingCart />
+        <div className="empty-cart-icon-wrapper">
+          <FaShoppingCart />
+        </div>
         <h2>سلة التسوق فارغة</h2>
         <p>أضف بعض منتجات العسل اللذيذة إلى سلتك</p>
         <Link to="/products">
