@@ -13,10 +13,9 @@ const ProductDetails = () => {
     1: { 
       id: 1, 
       name: 'عسل حبة البركة', 
-      price: '65', 
-      oldPrice: '85', 
+      price: '400', 
+      oldPrice: '430', 
       image: '/images/barka.png', 
-      rating: 5, 
       description: 'عسل طبيعي مدعم بحبة البركة، يجمع بين فوائد العسل وحبة البركة المباركة.', 
       longDescription: 'عسل حبة البركة هو مزيج فريد من عسل النحل الطبيعي مع حبة البركة المطحونة (الحبة السوداء). يتميز بفوائد صحية مضاعفة حيث يجمع بين خصائص العسل المضادة للبكتيريا وفوائد حبة البركة في تقوية المناعة. يستخدم منذ القدم في الطب النبوي والتداوي بالأعشاب.',
       benefits: ['يقوي المناعة بشكل مضاعف', 'مفيد لعلاج الحساسية والربو', 'يساعد في الهضم', 'مضاد للالتهابات', 'يقوي الذاكرة'],
@@ -25,10 +24,9 @@ const ProductDetails = () => {
     2: { 
       id: 2, 
       name: 'عسل الموالح', 
-      price: '50', 
-      oldPrice: '70', 
+      price: '400', 
+      oldPrice: '430', 
       image: '/images/mwaleh.png', 
-      rating: 5, 
       description: 'مستخرج من أزهار الموالح (البرتقال والليمون)، يتميز برائحة منعشة وطعم مميز.', 
       longDescription: 'عسل الموالح يتم استخلاصه من رحيق أزهار أشجار البرتقال والليمون واليوسفي. يتميز بلونه الفاتح المائل للاصفرار ورائحته الزكية المنعشة. يحتوي على نسبة عالية من فيتامين C ومضادات الأكسدة.',
       benefits: ['غني بفيتامين C', 'يقوي الجهاز المناعي', 'يحسن المزاج', 'مفيد لنزلات البرد', 'يعزز صحة الجلد'],
@@ -37,10 +35,9 @@ const ProductDetails = () => {
     3: { 
       id: 3, 
       name: 'عسل الموز', 
-      price: '48', 
-      oldPrice: '68', 
+      price: '380', 
+      oldPrice: '400', 
       image: '/images/banan.png', 
-      rating: 4, 
       description: 'عسل مستخلص من رحيق أزهار الموز، غني بالبوتاسيوم والفيتامينات.', 
       longDescription: 'عسل الموز من أنواع العسل النادرة، حيث يتم استخلاصه من رحيق أزهار الموز في المناطق الاستوائية. يتميز بقوامه الكريمي وطعمه الحلو المميز. غني بالبوتاسيوم والمغنيسيوم وفيتامين B6.',
       benefits: ['مصدر طبيعي للبوتاسيوم', 'مفيد لصحة القلب', 'يمنح الطاقة', 'يحسن المزاج', 'يساعد في النوم'],
@@ -49,10 +46,9 @@ const ProductDetails = () => {
     4: { 
       id: 4, 
       name: 'عسل البرسيم', 
-      price: '45', 
-      oldPrice: '60', 
+      price: '300', 
+      oldPrice: '315', 
       image: '/images/barsem.png', 
-      rating: 5, 
       description: 'عسل البرسيم النقي، لون فاتح وطعم معتدل، مثالي للاستخدام اليومي.', 
       longDescription: 'عسل البرسيم من أشهر أنواع العسل في العالم. يتميز بلونه الفاتح الشفاف وطعمه المعتدل الحلاوة. يذوب بسرعة في المشروبات الباردة والساخنة. يعتبر خياراً ممتازاً للاستخدام اليومي لكافة أفراد العائلة.',
       benefits: ['يقوي المناعة', 'مفيد للجهاز الهضمي', 'مصدر طبيعي للطاقة', 'غني بمضادات الأكسدة', 'يساعد في علاج الحساسية الموسمية'],
@@ -60,11 +56,10 @@ const ProductDetails = () => {
     },
     5: { 
       id: 5, 
-      name: 'عسل البرقدوش (المردقوش)', 
-      price: '70', 
-      oldPrice: '95', 
-      image: 'https://images.pexels.com/photos/1358902/pexels-photo-1358902.jpeg?auto=compress&cs=tinysrgb&w=600', 
-      rating: 5, 
+      name: 'عسل البرقدوش', 
+      price: '450', 
+      oldPrice: '500', 
+      image: '/images/barkadosh.png', 
       description: 'عسل البرقدوش العطري، مفيد للجهاز التنفسي والهضمي، نقي 100%.', 
       longDescription: 'عسل البرقدوش يتم استخلاصه من رحيق زهور البرقدوش البري (المردقوش). يتميز برائحته العطرية القوية وطعمه اللاذع قليلاً. يستخدم منذ القدم لعلاج مشاكل الجهاز التنفسي والهضمي.',
       benefits: ['مفيد للجهاز التنفسي', 'يساعد في الهضم', 'مضاد للبكتيريا', 'يخفف التوتر', 'يعزز صحة المرأة'],
@@ -73,10 +68,9 @@ const ProductDetails = () => {
     6: { 
       id: 6, 
       name: 'عسل الزعتر', 
-      price: '60', 
-      oldPrice: '80', 
+      price: '330', 
+      oldPrice: '350', 
       image: '/images/zahter.png', 
-      rating: 5, 
       description: 'عسل الزعتر الجبلي، غني بمضادات الأكسدة، يعزز المناعة ويحسن الهضم.', 
       longDescription: 'عسل الزعتر من أروع أنواع العسل الجبلي. يتم استخلاصه من رحيق زهور الزعتر البري الذي ينمو في الجبال. يتميز بلونه الداكن وطعمه القوي المميز. يعتبر من أقوى أنواع العسل من حيث الفوائد العلاجية.',
       benefits: ['مضاد قوي للبكتيريا', 'يعالج السعال والتهاب الحلق', 'مفيد للمعدة', 'يقوي الذاكرة', 'يطرد البلغم'],
@@ -85,10 +79,9 @@ const ProductDetails = () => {
     7: { 
       id: 7, 
       name: 'عسل سدر جبل مصري', 
-      price: '85', 
-      oldPrice: '120', 
+      price: '1200', 
+      oldPrice: '1400', 
       image: '/images/sader.png', 
-      rating: 5, 
       description: 'أفخر أنواع العسل المصري، من جبال السدر في مصر، عسل داكن غني بالفوائد العلاجية.', 
       longDescription: 'عسل السدر الجبلي المصري هو أغلى وأفضل أنواع العسل في العالم. يتم استخلاصه من رحيق أشجار السدر التي تنمو في جبال مصر (سانت كاترين وجبل موسى). يتميز بلونه الداكن المحمر وقوامه الثقيل وطعمه اللاذع المميز. يستخدم في الطب النبوي والعلاج بالأعشاب.',
       benefits: ['أقوى مضاد حيوي طبيعي', 'يعالج قرحة المعدة', 'مفيد للكبد', 'يقوي المناعة', 'يعالج مشاكل الجلد والبشرة'],
@@ -121,16 +114,11 @@ const ProductDetails = () => {
         </div>
         <div className="product-details-info">
           <h1>{product.name}</h1>
-          <div className="rating">
-            {[...Array(5)].map((_, i) => (
-              <FaStar key={i} className={i < product.rating ? 'star-filled' : 'star-empty'} />
-            ))}
-            <span className="rating-count">(أكثر من 150 تقييم)</span>
-          </div>
+          
           <div className="price">
-            <span className="current">${product.price}</span>
-            <span className="old">${product.oldPrice}</span>
-            <span className="save">وفر ${(parseFloat(product.oldPrice) - parseFloat(product.price)).toFixed(2)}</span>
+            <span className="current">E£ {product.price}</span>
+            <span className="old">E£ {product.oldPrice}</span>
+            <span className="save">وفر E£ {(parseFloat(product.oldPrice) - parseFloat(product.price)).toFixed(2)}</span>
           </div>
           <p className="description">{product.description}</p>
           <p className="long-description">{product.longDescription}</p>
@@ -158,13 +146,12 @@ const ProductDetails = () => {
           </div>
 
           <button className="btn-add-to-cart" onClick={handleAddToCart}>
-            أضف إلى السلة - ${(parseFloat(product.price) * quantity).toFixed(2)}
+            أضف إلى السلة - E£ {(parseFloat(product.price) * quantity).toFixed(2)}
           </button>
 
           <div className="shipping-info">
-            <div><FaTruck /> توصيل مجاني للطلبات فوق 200 ريال</div>
+            <div><FaTruck /> توصيل مجاني للطلبات فوق 200 جنيه</div>
             <div><FaShieldAlt /> ضمان الجودة 100%</div>
-            <div><FaUndo /> إرجاع خلال 7 أيام</div>
           </div>
         </div>
       </div>
