@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GiFlowerPot } from 'react-icons/gi';
-import { FaTruck, FaAward, FaStar } from 'react-icons/fa';
+import { FaTruck, FaAward } from 'react-icons/fa';
 
 const Home = () => {
   // عرض أفضل 3 منتجات في الصفحة الرئيسية
