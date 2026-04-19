@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaStar, FaTruck, FaShieldAlt, FaUndo, FaLeaf, FaHeart, FaShare } from 'react-icons/fa';
+import {  FaTruck, FaShieldAlt, FaLeaf, FaHeart, FaShare } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 
 const ProductDetails = () => {
@@ -9,7 +9,7 @@ const ProductDetails = () => {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
 
-  const products = {
+   const products = {
     1: { 
       id: 1, 
       name: 'عسل حبة البركة', 
