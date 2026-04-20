@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaTruck, FaShieldAlt, FaLeaf, FaHeart, FaShare } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
@@ -8,9 +8,16 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const [isSaved, setIsSaved] = useState(false); // State لحالة الحفظ
+  const [isSaved, setIsSaved] = useState(false);
 
-   const products = {
+  // ✅ تحميل حالة الحفظ من localStorage عند تحميل الصفحة
+  useEffect(() => {
+    const savedProducts = JSON.parse(localStorage.getItem('savedProducts') || '[]');
+    const isProductSaved = savedProducts.some(item => item.id === parseInt(id));
+    setIsSaved(isProductSaved);
+  }, [id]);
+
+  const products = {
     1: { 
       id: 1, 
       name: 'عسل حبة البركة', 
@@ -22,7 +29,6 @@ const ProductDetails = () => {
       benefits: ['يقوي المناعة بشكل مضاعف', 'مفيد لعلاج الحساسية والربو', 'يساعد في الهضم', 'مضاد للالتهابات', 'يقوي الذاكرة'],
       usage: 'ملعقة صغيرة يومياً على الريق أو مع كوب من الماء الدافئ.'
     },
-    // ... باقي المنتجات (2,3,4,5,6,7) بنفس الشكل ...
     2: { 
       id: 2, 
       name: 'عسل الموالح', 
@@ -104,21 +110,24 @@ const ProductDetails = () => {
     navigate('/cart');
   };
 
-  // ✅ دالة حفظ المنتج (إضافة إلى المفضلة)
+  // ✅ دالة حفظ المنتج (إضافة إلى المفضلة) مع localStorage
   const handleSaveProduct = () => {
-    setIsSaved(!isSaved);
-    // هنا تقدر تحفظ المنتج في localStorage أو Context خاص بالمفضلة
+    const savedProducts = JSON.parse(localStorage.getItem('savedProducts') || '[]');
+    
     if (!isSaved) {
-      // مثال: حفظ في localStorage
-      const savedItems = JSON.parse(localStorage.getItem('savedProducts') || '[]');
-      if (!savedItems.find(item => item.id === product.id)) {
-        savedItems.push(product);
-        localStorage.setItem('savedProducts', JSON.stringify(savedItems));
+      // إضافة المنتج إلى المفضلة
+      if (!savedProducts.find(item => item.id === product.id)) {
+        savedProducts.push(product);
+        localStorage.setItem('savedProducts', JSON.stringify(savedProducts));
       }
-      alert(`تم حفظ ${product.name} في المفضلة ✅`);
+      setIsSaved(true);
+      alert(`✅ تم حفظ ${product.name} في المفضلة`);
     } else {
-      alert(`تم إزالة ${product.name} من المفضلة ❌`);
-      // هنا تقدر تحذفه من localStorage لو حابب
+      // إزالة المنتج من المفضلة
+      const updatedProducts = savedProducts.filter(item => item.id !== product.id);
+      localStorage.setItem('savedProducts', JSON.stringify(updatedProducts));
+      setIsSaved(false);
+      alert(`❌ تم إزالة ${product.name} من المفضلة`);
     }
   };
 
@@ -127,10 +136,9 @@ const ProductDetails = () => {
     const shareData = {
       title: product.name,
       text: product.description,
-      url: window.location.href, // رابط المنتج الحالي
+      url: window.location.href,
     };
 
-    // محاولة استخدام Web Share API (على الجوال)
     if (navigator.share) {
       try {
         await navigator.share(shareData);
@@ -139,7 +147,6 @@ const ProductDetails = () => {
         console.log('Error sharing:', err);
       }
     } else {
-      // لو المتصفح لا يدعم المشاركة، ننسخ الرابط للحافظة
       try {
         await navigator.clipboard.writeText(window.location.href);
         alert('تم نسخ رابط المنتج! يمكنك مشاركته الآن 📋');
@@ -155,12 +162,11 @@ const ProductDetails = () => {
         <div className="product-details-image">
           <img src={product.image} alt={product.name} />
           
-          {/* ✅ الأزرار أصبحت تعمل الآن */}
           <div className="image-actions">
             <button 
               className={`img-action ${isSaved ? 'saved' : ''}`} 
               onClick={handleSaveProduct}
-              style={{ color: isSaved ? 'red' : 'inherit' }}
+              style={{ color: isSaved ? '#ff4444' : '#fff' }}
             >
               <FaHeart /> {isSaved ? 'تم الحفظ' : 'حفظ'}
             </button>
