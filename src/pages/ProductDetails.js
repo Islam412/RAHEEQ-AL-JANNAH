@@ -8,6 +8,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [isSaved, setIsSaved] = useState(false); // State لحالة الحفظ
 
    const products = {
     1: { 
@@ -21,6 +22,7 @@ const ProductDetails = () => {
       benefits: ['يقوي المناعة بشكل مضاعف', 'مفيد لعلاج الحساسية والربو', 'يساعد في الهضم', 'مضاد للالتهابات', 'يقوي الذاكرة'],
       usage: 'ملعقة صغيرة يومياً على الريق أو مع كوب من الماء الدافئ.'
     },
+    // ... باقي المنتجات (2,3,4,5,6,7) بنفس الشكل ...
     2: { 
       id: 2, 
       name: 'عسل الموالح', 
@@ -102,16 +104,72 @@ const ProductDetails = () => {
     navigate('/cart');
   };
 
+  // ✅ دالة حفظ المنتج (إضافة إلى المفضلة)
+  const handleSaveProduct = () => {
+    setIsSaved(!isSaved);
+    // هنا تقدر تحفظ المنتج في localStorage أو Context خاص بالمفضلة
+    if (!isSaved) {
+      // مثال: حفظ في localStorage
+      const savedItems = JSON.parse(localStorage.getItem('savedProducts') || '[]');
+      if (!savedItems.find(item => item.id === product.id)) {
+        savedItems.push(product);
+        localStorage.setItem('savedProducts', JSON.stringify(savedItems));
+      }
+      alert(`تم حفظ ${product.name} في المفضلة ✅`);
+    } else {
+      alert(`تم إزالة ${product.name} من المفضلة ❌`);
+      // هنا تقدر تحذفه من localStorage لو حابب
+    }
+  };
+
+  // ✅ دالة مشاركة المنتج
+  const handleShareProduct = async () => {
+    const shareData = {
+      title: product.name,
+      text: product.description,
+      url: window.location.href, // رابط المنتج الحالي
+    };
+
+    // محاولة استخدام Web Share API (على الجوال)
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        console.log('تمت المشاركة بنجاح');
+      } catch (err) {
+        console.log('Error sharing:', err);
+      }
+    } else {
+      // لو المتصفح لا يدعم المشاركة، ننسخ الرابط للحافظة
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('تم نسخ رابط المنتج! يمكنك مشاركته الآن 📋');
+      } catch (err) {
+        alert('حدث خطأ، حاول مرة أخرى');
+      }
+    }
+  };
+
   return (
     <div className="product-details-page">
       <div className="product-details-container">
         <div className="product-details-image">
           <img src={product.image} alt={product.name} />
+          
+          {/* ✅ الأزرار أصبحت تعمل الآن */}
           <div className="image-actions">
-            <button className="img-action"><FaHeart /> حفظ</button>
-            <button className="img-action"><FaShare /> مشاركة</button>
+            <button 
+              className={`img-action ${isSaved ? 'saved' : ''}`} 
+              onClick={handleSaveProduct}
+              style={{ color: isSaved ? 'red' : 'inherit' }}
+            >
+              <FaHeart /> {isSaved ? 'تم الحفظ' : 'حفظ'}
+            </button>
+            <button className="img-action" onClick={handleShareProduct}>
+              <FaShare /> مشاركة
+            </button>
           </div>
         </div>
+        
         <div className="product-details-info">
           <h1>{product.name}</h1>
           

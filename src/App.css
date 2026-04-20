@@ -5110,3 +5110,7 @@ label .required-star {
 }
 
 
+.img-action.saved {
+  color: red;
+  background-color: #ffe6e6;
+}
