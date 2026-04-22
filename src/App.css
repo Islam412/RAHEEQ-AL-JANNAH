@@ -5416,3 +5416,39 @@ label .required-star {
     justify-content: center;
   }
 }
+
+
+/* روابط الاتصال */
+.contact-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s;
+  direction: ltr;
+  display: inline-block;
+}
+
+.contact-link:hover {
+  color: #d4a017;
+  transform: translateX(-3px);
+}
+
+/* رابط الواتساب مميز */
+.whatsapp-link {
+  color: #25D366 !important;
+  font-weight: bold;
+}
+
+.whatsapp-link:hover {
+  color: #128C7E !important;
+}
+
+/* أيقونة الواتساب في السوشيال ميديا */
+.social-icons a.whatsapp-icon {
+  background: #25D366 !important;
+  color: white !important;
+}
+
+.social-icons a.whatsapp-icon:hover {
+  background: #128C7E !important;
+  transform: translateY(-3px) !important;
+}

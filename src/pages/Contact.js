@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +13,9 @@ const Contact = () => {
     alert('شكراً لتواصلك معنا! سنرد عليك قريباً.');
     setFormData({ name: '', email: '', message: '' });
   };
+
+  // رقم الواتساب (بدون أصفار أولية مع كود الدولة)
+  const whatsappNumber = '201113105440';
 
   return (
     <section className="contact-page">
@@ -50,20 +53,60 @@ const Contact = () => {
         </div>
         <div className="contact-info">
           <h3>رحيق الجنة لعسل النحل</h3>
-          <p><FaPhoneAlt /> +966 12 345 6789</p>
-          <p><FaEnvelope /> info@raheeqaljannah.com</p>
-          <p><FaMapMarkerAlt /> الرياض، المملكة العربية السعودية</p>
+          
+          {/* ✅ رقم الهاتف - يفتح تطبيق الهاتف */}
+          <p>
+            <FaPhoneAlt /> 
+            <a href="tel:+201113105440" className="contact-link">011 1310 5440</a>
+          </p>
+          
+          {/* ✅ رقم الواتساب - يفتح واتساب مباشرة */}
+          <p>
+            <FaWhatsapp /> 
+            <a 
+              href={`https://wa.me/${whatsappNumber}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="contact-link whatsapp-link"
+            >
+              011 1310 5440 (واتساب)
+            </a>
+          </p>
+          
+          {/* ✅ البريد الإلكتروني */}
+          <p>
+            <FaEnvelope /> 
+            <a href="mailto:info@raheeqaljannah.com" className="contact-link">info@raheeqaljannah.com</a>
+          </p>
+          
+          {/* ✅ العنوان - يفتح خرائط جوجل */}
+          <p>
+            <FaMapMarkerAlt /> 
+            <a 
+              href="https://maps.google.com/?q=Riyadh+Saudi+Arabia" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="contact-link"
+            >
+              الرياض، المملكة العربية السعودية
+            </a>
+          </p>
+          
           <div className="working-hours">
             <h4><FaClock /> ساعات العمل</h4>
             <p>السبت - الخميس: 9ص - 9م</p>
             <p>الجمعة: مغلق</p>
           </div>
+          
           <div className="social-media">
             <h4>تابعنا</h4>
             <div className="social-icons">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
+              <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="whatsapp-icon">
+                <FaWhatsapp />
+              </a>
             </div>
           </div>
         </div>
