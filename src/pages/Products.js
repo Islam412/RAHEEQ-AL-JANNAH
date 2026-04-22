@@ -102,8 +102,8 @@ const Products = () => {
               </div> */}
               <p className="product-desc">{product.description}</p>
               <div className="price">
-                <span className="current">E£ {product.price}</span>
-                <span className="old">E£ {product.oldPrice}</span>
+                <span className="current">{product.price}ج.م</span>
+                <span className="old">{product.oldPrice}ج.م</span>
               </div>
               <div className="product-buttons">
                 <Link to={`/product/${product.id}`}>
