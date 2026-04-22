@@ -102,9 +102,10 @@ const Contact = () => {
             <input 
               type="tel" 
               name="phone"
-              placeholder="رقم الهاتف" 
+              placeholder="رقم الهاتف*" 
               value={formData.phone}
               onChange={handleChange}
+              required
             />
             <textarea 
               name="message"
