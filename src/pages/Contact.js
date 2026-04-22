@@ -137,7 +137,7 @@ const Contact = () => {
           
           <p>
             <FaEnvelope /> 
-            <a href="mailto:hussein.99.hamdy@gmail.com" target="_blank" className="contact-link">hussein.99.hamdy@gmail.com</a>
+            <a href="mailto:hussein.99.hamdy@gmail.com" className="contact-link">hussein.99.hamdy@gmail.com</a>
           </p>
           
           {/* <p>
