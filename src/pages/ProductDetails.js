@@ -180,9 +180,9 @@ const ProductDetails = () => {
           <h1>{product.name}</h1>
           
           <div className="price">
-            <span className="current">E£ {product.price}</span>
-            <span className="old">E£ {product.oldPrice}</span>
-            <span className="save">وفر E£ {(parseFloat(product.oldPrice) - parseFloat(product.price)).toFixed(2)}</span>
+            <span className="current"> {product.price}ج.م</span>
+            <span className="old"> {product.oldPrice}ج.م</span>
+            <span className="save">وفر {(parseFloat(product.oldPrice) - parseFloat(product.price)).toFixed(2)}ج.م</span>
           </div>
           <p className="description">{product.description}</p>
           <p className="long-description">{product.longDescription}</p>
@@ -210,7 +210,7 @@ const ProductDetails = () => {
           </div>
 
           <button className="btn-add-to-cart" onClick={handleAddToCart}>
-            أضف إلى السلة - E£ {(parseFloat(product.price) * quantity).toFixed(2)}
+            أضف إلى السلة -  {(parseFloat(product.price) * quantity).toFixed(2)}ج.م
           </button>
 
           <div className="shipping-info">
