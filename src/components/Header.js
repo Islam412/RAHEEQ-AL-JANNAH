@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { GiBee } from 'react-icons/gi';
-import { FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa';
+import { FaShoppingCart, FaBars, FaTimes, FaHeart } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 
 const Header = () => {
@@ -39,6 +39,9 @@ const Header = () => {
       </nav>
 
       <div className="header-actions">
+        <Link to="/saved" className="fav-icon" onClick={closeMenu}>
+          <FaHeart />
+        </Link>
         <Link to="/cart" className="cart-icon" onClick={closeMenu}>
           <FaShoppingCart />
           {getCartCount() > 0 && <span className="cart-badge">{getCartCount()}</span>}
