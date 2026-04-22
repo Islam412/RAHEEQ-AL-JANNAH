@@ -61,13 +61,22 @@ const About = () => {
         </div>
         
         <div className="about-img">
-          <img src="https://images.pexels.com/photos/6133802/pexels-photo-6133802.jpeg?auto=compress&cs=tinysrgb&w=600" alt="منحل عسل طبيعي" />
-          <img src="https://images.pexels.com/photos/1358902/pexels-photo-1358902.jpeg?auto=compress&cs=tinysrgb&w=600" alt="خلايا النحل" />
-          <img src="https://images.pexels.com/photos/16678344/pexels-photo-16678344/free-photo-of-white-clover-flowers.jpeg?auto=compress&cs=tinysrgb&w=600" alt="زهور العسل" />
+          <img src="/images/img/manhel.jpeg" alt="منحل عسل طبيعي" />
+          <img src="/images/img/banana.png" alt=" زهرة الموز" />
+          <img src="/images/img/barkadosh.jpg" alt="زهرة البرقدوش " />
+          <img src="/images/img/barsem.jpg" alt="زهرة البرسيم " />
+          <img src="/images/img/haptelbarka.jpeg" alt="زهرة حبة البركة " />
+          <img src="/images/img/mwaleh.jpg" alt="زهرة الموالح " />
+          <img src="/images/img/sadergably.png" alt="زهرة سدر جبلى مصري " />
+          <img src="/images/img/zahter.jpg" alt="زهرة زعتر   " />
           <div className="quote">
             <GiBee className="quote-icon" />
-            <p>"الشفاء في ثلاث: شرطة محجم، أو شربة عسل، أو كية بنار"</p>
-            <span>- النبي محمد ﷺ</span>
+            <span>عن عبد الله بن عباس رضي الله عنهما، عن النبي محمد ﷺ</span>
+            <p> "الشِّفَاءُ فِي ثَلَاثَةٍ: شَرْبَةِ عَسَلٍ، وَشَرْطَةِ مِحْجَمٍ، وَكَيَّةِ نَارٍ، وَأَنْهَى أُمَّتِي عَنِ الكَيِّ"</p>
+            <span>صحيح بخاري </span>
+            <span>قال تعالى </span>
+            <p> "ثُمَّ كُلِي مِن كُلِّ الثَّمَرَاتِ فَاسْلُكِي سُبُلَ رَبِّكِ ذُلُلًا ۚ يَخْرُجُ مِن بُطُونِهَا شَرَابٌ مُّخْتَلِفٌ أَلْوَانُهُ فِيهِ شِفَاءٌ لِّلنَّاسِ ۗ إِنَّ فِي ذَٰلِكَ لَآيَةً لِّقَوْمٍ يَتَفَكَّرُونَ" </p>
+            <span>سورة النحل</span>
           </div>
         </div>
       </div>
