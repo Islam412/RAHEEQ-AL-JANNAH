@@ -91,8 +91,8 @@ const SavedProducts = () => {
               <h3>{product.name}</h3>
               <p className="product-description">{product.description}</p>
               <div className="product-price">
-                <span className="current-price">E£ {product.price}</span>
-                <span className="old-price">E£ {product.oldPrice}</span>
+                <span className="current-price">{product.price}ج.م</span>
+                <span className="old-price">{product.oldPrice}ج.م</span>
               </div>
               <div className="product-actions">
                 <Link to={`/product/${product.id}`}>

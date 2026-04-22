@@ -7,10 +7,9 @@ const OrderSuccess = () => {
     <div className="order-success-page">
       <div className="success-card">
         <FaCheckCircle className="success-icon" />
-        <h1>تم استلام طلبك بنجاح!</h1>
+        <h1>تم استلام طلبكم بنجاح!</h1>
         <p>شكراً لتسوقك مع <span className="gold">رحيق الجنة</span></p>
         <div className="order-details">
-          <p>سيتم تأكيد طلبك عبر البريد الإلكتروني خلال 24 ساعة</p>
           <p>رقم الطلب: <strong>#ORD-{Math.floor(Math.random() * 100000)}</strong></p>
         </div>
         <div className="success-buttons">

@@ -66,14 +66,22 @@ const Cart = () => {
     address: ''
   });
 
-  const shippingCost = getCartTotal() > 200 ? 0 : 10;
+  // حساب تكلفة الشحن حسب إجمالي الطلب (بالجنيه المصري)
+  const getShippingCost = (total) => {
+    if (total >= 1500) return 0;      // شحن مجاني للطلبات فوق 1500 ج.م
+    if (total >= 1000) return 30;     // 30 ج.م للطلبات بين 1000 و 1500
+    if (total >= 500) return 40;      // 40 ج.م للطلبات بين 500 و 1000
+    return 50;                         // 50 ج.م للطلبات أقل من 500
+  };
+
+  const shippingCost = getShippingCost(getCartTotal());
   const finalTotal = getCartTotal() + shippingCost;
 
-  // إنشاء رسالة الطلب للتنسيق النصي (واتساب)
+  // إنشاء رسالة الطلب للتنسيق النصي (واتساب) - بالجنيه المصري
   const createOrderMessageText = () => {
     const orderDate = new Date().toLocaleString('ar-EG');
     const productsList = cartItems.map(item => 
-      `• ${item.name} × ${item.quantity} = $${(parseFloat(item.price) * item.quantity).toFixed(2)}`
+      `• ${item.name} × ${item.quantity} = ${(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م`
     ).join('\n');
     
     let message = `🛍️ *طلب جديد من موقع رحيق الجنة*\n\n`;
@@ -82,9 +90,9 @@ const Cart = () => {
     message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
     message += `📦 *المنتجات:*\n${productsList}\n\n`;
     message += `━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `💵 *المجموع الفرعي:* $${getCartTotal().toFixed(2)}\n`;
-    message += `🚚 *الشحن:* ${shippingCost === 0 ? 'مجاني' : `$${shippingCost}`}\n`;
-    message += `💰 *الإجمالي:* $${finalTotal.toFixed(2)}\n\n`;
+    message += `💵 *المجموع الفرعي:* ${getCartTotal().toFixed(2)} ج.م\n`;
+    message += `🚚 *الشحن:* ${shippingCost === 0 ? 'مجاني' : `${shippingCost} ج.م`}\n`;
+    message += `💰 *الإجمالي:* ${finalTotal.toFixed(2)} ج.م\n\n`;
     message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
     message += `👤 *معلومات العميل:*\n`;
     message += `• الاسم: ${shippingInfo.fullName}\n`;
@@ -96,7 +104,7 @@ const Cart = () => {
       message += `━━━━━━━━━━━━━━━━━━━━\n`;
       message += `💳 *معلومات التحويل (إنستا باي):*\n`;
       message += `• اسم المرسل: ${instapayInfo.senderName}\n`;
-      message += `• المبلغ المحول: $${instapayInfo.amount}\n`;
+      message += `• المبلغ المحول: ${instapayInfo.amount} ج.م\n`;
       message += `• رقم المعاملة: ${instapayInfo.transactionId}\n`;
     }
     
@@ -141,7 +149,7 @@ const Cart = () => {
   };
 
   // ============================================
-  // إرسال إلى واتساب عبر Green API (تم التعديل)
+  // إرسال إلى واتساب عبر Green API
   // ============================================
   const sendToWhatsAppAuto = async () => {
     const message = createOrderMessageText();
@@ -170,7 +178,7 @@ const Cart = () => {
   };
 
   // ============================================
-  // إرسال صورة الإيصال إلى واتساب (تم التعديل)
+  // إرسال صورة الإيصال إلى واتساب
   // ============================================
   const sendImageToWhatsApp = async (imageUrl) => {
     const chatId = `${contactData.whatsapp}@c.us`;
@@ -206,7 +214,7 @@ const Cart = () => {
   // ============================================
   const sendToEmailAuto = async (imageUrl) => {
     const productsText = cartItems.map(item => 
-      `${item.name} × ${item.quantity} = $${(parseFloat(item.price) * item.quantity).toFixed(2)}`
+      `${item.name} × ${item.quantity} = ${(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م`
     ).join('\n');
     
     const templateParams = {
@@ -217,12 +225,12 @@ const Cart = () => {
       order_date: new Date().toLocaleString('ar-EG'),
       payment_method: paymentMethod === 'cash' ? 'الدفع عند الاستلام' : 'إنستا باي',
       products_list: productsText,
-      subtotal: `$${getCartTotal().toFixed(2)}`,
-      shipping: shippingCost === 0 ? 'مجاني' : `$${shippingCost}`,
-      total: `$${finalTotal.toFixed(2)}`,
+      subtotal: `${getCartTotal().toFixed(2)} ج.م`,
+      shipping: shippingCost === 0 ? 'مجاني' : `${shippingCost} ج.م`,
+      total: `${finalTotal.toFixed(2)} ج.م`,
       instapay_details: paymentMethod === 'instapay' ? 'true' : 'false',
       sender_name: instapayInfo.senderName || 'غير متاح',
-      transfer_amount: instapayInfo.amount ? `$${instapayInfo.amount}` : 'غير متاح',
+      transfer_amount: instapayInfo.amount ? `${instapayInfo.amount} ج.م` : 'غير متاح',
       transaction_id: instapayInfo.transactionId || 'غير متاح',
       payment_image_url: imageUrl || 'غير متاح'
     };
@@ -303,7 +311,7 @@ const Cart = () => {
     if (!instapayInfo.amount) {
       newErrors.amount = 'المبلغ المحول مطلوب';
     } else if (parseFloat(instapayInfo.amount) !== finalTotal) {
-      newErrors.amount = `المبلغ يجب أن يساوي $${finalTotal}`;
+      newErrors.amount = `المبلغ يجب أن يساوي ${finalTotal} ج.م`;
     }
     if (!paymentImage) {
       newErrors.paymentImage = 'صورة إيصال الدفع مطلوبة';
@@ -473,14 +481,14 @@ const Cart = () => {
                   <p className="cart-item-category">عسل طبيعي</p>
                 </div>
               </div>
-              <p className="cart-item-price">${item.price}</p>
+              <p className="cart-item-price">{item.price} ج.م</p>
               <div className="cart-item-quantity">
                 <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
                 <span>{item.quantity}</span>
                 <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
               </div>
               <div className="cart-item-total">
-                <p>${(parseFloat(item.price) * item.quantity).toFixed(2)}</p>
+                <p>{(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م</p>
                 <button onClick={() => removeFromCart(item.id)} className="remove-btn">
                   <FaTrash />
                 </button>
@@ -493,25 +501,25 @@ const Cart = () => {
           <h3>ملخص الطلب</h3>
           <div className="summary-row">
             <span>المجموع الفرعي:</span>
-            <span>${getCartTotal().toFixed(2)}</span>
+            <span>{getCartTotal().toFixed(2)} ج.م</span>
           </div>
           <div className="summary-row">
             <span>الشحن:</span>
-            <span>{shippingCost === 0 ? 'مجاني' : `$${shippingCost}`}</span>
+            <span>{shippingCost === 0 ? 'مجاني' : `${shippingCost} ج.م`}</span>
           </div>
           <div className="summary-row discount">
             <span>الخصم:</span>
-            <span>$0.00</span>
+            <span>0.00 ج.م</span>
           </div>
           <div className="summary-row total">
             <span>الإجمالي:</span>
-            <span>${finalTotal.toFixed(2)}</span>
+            <span>{finalTotal.toFixed(2)} ج.م</span>
           </div>
-          {getCartTotal() < 200 && getCartTotal() > 0 && (
+          {getCartTotal() < 1500 && getCartTotal() > 0 && (
             <div className="free-shipping-notice">
-              أضف ${(200 - getCartTotal()).toFixed(2)} للحصول على شحن مجاني
+              أضف {(1500 - getCartTotal()).toFixed(2)} ج.م للحصول على شحن مجاني
               <div className="shipping-progress-bar">
-                <div className="shipping-progress-fill" style={{width: `${(getCartTotal() / 200) * 100}%`}}></div>
+                <div className="shipping-progress-fill" style={{width: `${(getCartTotal() / 1500) * 100}%`}}></div>
               </div>
             </div>
           )}
@@ -545,12 +553,12 @@ const Cart = () => {
                     {cartItems.map(item => (
                       <div key={item.id} className="order-item">
                         <span>{item.name} × {item.quantity}</span>
-                        <span>${(parseFloat(item.price) * item.quantity).toFixed(2)}</span>
+                        <span>{(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م</span>
                       </div>
                     ))}
                     <div className="order-total">
                       <span>الإجمالي</span>
-                      <span>${finalTotal.toFixed(2)}</span>
+                      <span>{finalTotal.toFixed(2)} ج.م</span>
                     </div>
                   </div>
 
@@ -651,7 +659,7 @@ const Cart = () => {
                         <ol>
                           <li>افتح تطبيق إنستا باي على هاتفك</li>
                           <li>اختر "مسح الكود" وامسح QR Code أعلاه</li>
-                          <li>أدخل المبلغ المطلوب: <strong>${finalTotal.toFixed(2)}</strong></li>
+                          <li>أدخل المبلغ المطلوب: <strong>{finalTotal.toFixed(2)} ج.م</strong></li>
                           <li>قم بتأكيد التحويل</li>
                           <li>قم بتصوير إيصال الدفع (Screenshot)</li>
                           <li>ارفع الصورة أدناه للتأكيد</li>
@@ -662,7 +670,7 @@ const Cart = () => {
                       <div className="instapay-confirm">
                         <div className="confirm-row">
                           <label>المبلغ المطلوب:</label>
-                          <span className="required-amount">${finalTotal.toFixed(2)}</span>
+                          <span className="required-amount">{finalTotal.toFixed(2)} ج.م</span>
                         </div>
                         
                         <div className="form-group">
