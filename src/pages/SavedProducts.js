@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaStar, FaHeart, FaTrash, FaShoppingCart, FaRegHeart } from 'react-icons/fa';
+import { FaTrash, FaShoppingCart, FaRegHeart } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 
 const SavedProducts = () => {
