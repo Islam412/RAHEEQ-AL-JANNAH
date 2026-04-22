@@ -36,7 +36,7 @@ const Home = () => {
         <div className="feature-card">
           <FaTruck className="feature-icon" />
           <h3>توصيل مجاني</h3>
-          <p>للطلبات التي تزيد عن 200 ريال، نصل لباب منزلك.</p>
+          <p>للطلبات التي تزيد عن 500 جنيه. نصل لباب منزلك.</p>
         </div>
         <div className="feature-card">
           <FaAward className="feature-icon" />
