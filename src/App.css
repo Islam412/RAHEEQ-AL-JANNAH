@@ -1274,8 +1274,8 @@ h1, h2, h3 {
 }
 
 .cart-item-product img {
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -6038,3 +6038,56 @@ label .required-star {
     max-height: 180px;
   }
 }
+
+
+.saved-product-img {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.saved-product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+
+.saved-product-card:hover .saved-product-img img {
+  transform: scale(1.05);
+}
+
+/* للشاشات المتوسطة */
+@media (max-width: 1024px) {
+  .saved-product-img {
+    height: 250px;
+  }
+}
+
+/* للشاشات الصغيرة (تابلت) */
+@media (max-width: 768px) {
+  .saved-product-img {
+    height: 220px;
+  }
+}
+
+/* للجوال */
+@media (max-width: 576px) {
+  .saved-product-img {
+    height: 200px;
+  }
+}
+
+/* للجوال الصغير جداً */
+@media (max-width: 380px) {
+  .saved-product-img {
+    height: 180px;
+  }
+}
+
+
