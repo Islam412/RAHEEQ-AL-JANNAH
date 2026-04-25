@@ -66,15 +66,10 @@ const Cart = () => {
     address: ''
   });
 
-  // حساب تكلفة الشحن حسب إجمالي الطلب (بالجنيه المصري)
-  const getShippingCost = (total) => {
-    if (total >= 1500) return 0;      // شحن مجاني للطلبات فوق 1500 ج.م
-    if (total >= 1000) return 30;     // 30 ج.م للطلبات بين 1000 و 1500
-    if (total >= 500) return 40;      // 40 ج.م للطلبات بين 500 و 1000
-    return 50;                         // 50 ج.م للطلبات أقل من 500
-  };
-
-  const shippingCost = getShippingCost(getCartTotal());
+  // ============================================
+  // تكلفة الشحن - ثابتة 130 ج.م لجميع الطلبات
+  // ============================================
+  const shippingCost = 130;
   const finalTotal = getCartTotal() + shippingCost;
 
   // إنشاء رسالة الطلب للتنسيق النصي (واتساب) - بالجنيه المصري
@@ -91,7 +86,7 @@ const Cart = () => {
     message += `📦 *المنتجات:*\n${productsList}\n\n`;
     message += `━━━━━━━━━━━━━━━━━━━━\n`;
     message += `💵 *المجموع الفرعي:* ${getCartTotal().toFixed(2)} ج.م\n`;
-    message += `🚚 *الشحن:* ${shippingCost === 0 ? 'مجاني' : `${shippingCost} ج.م`}\n`;
+    message += `🚚 *الشحن:* ${shippingCost} ج.م (ثابت)\n`;
     message += `💰 *الإجمالي:* ${finalTotal.toFixed(2)} ج.م\n\n`;
     message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
     message += `👤 *معلومات العميل:*\n`;
@@ -226,7 +221,7 @@ const Cart = () => {
       payment_method: paymentMethod === 'cash' ? 'الدفع عند الاستلام' : 'إنستا باي',
       products_list: productsText,
       subtotal: `${getCartTotal().toFixed(2)} ج.م`,
-      shipping: shippingCost === 0 ? 'مجاني' : `${shippingCost} ج.م`,
+      shipping: `${shippingCost} ج.م (ثابت)`,
       total: `${finalTotal.toFixed(2)} ج.م`,
       instapay_details: paymentMethod === 'instapay' ? 'true' : 'false',
       sender_name: instapayInfo.senderName || 'غير متاح',
@@ -505,7 +500,7 @@ const Cart = () => {
           </div>
           <div className="summary-row">
             <span>الشحن:</span>
-            <span>{shippingCost === 0 ? 'مجاني' : `${shippingCost} ج.م`}</span>
+            <span>{shippingCost} ج.م (ثابت)</span>
           </div>
           <div className="summary-row discount">
             <span>الخصم:</span>
@@ -515,14 +510,12 @@ const Cart = () => {
             <span>الإجمالي:</span>
             <span>{finalTotal.toFixed(2)} ج.م</span>
           </div>
-          {getCartTotal() < 1500 && getCartTotal() > 0 && (
-            <div className="free-shipping-notice">
-              أضف {(1500 - getCartTotal()).toFixed(2)} ج.م للحصول على شحن مجاني
-              <div className="shipping-progress-bar">
-                <div className="shipping-progress-fill" style={{width: `${(getCartTotal() / 1500) * 100}%`}}></div>
-              </div>
-            </div>
-          )}
+          
+          {/* إشعار ثابت بتكلفة الشحن */}
+          <div className="free-shipping-notice">
+            🚚 تكلفة الشحن ثابتة {shippingCost} ج.م لجميع محافظات مصر
+          </div>
+          
           <button className="btn-checkout" onClick={handleCheckout}>
             إتمام الشراء
           </button>

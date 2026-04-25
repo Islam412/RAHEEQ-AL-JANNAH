@@ -35,8 +35,8 @@ const Home = () => {
         </div>
         <div className="feature-card">
           <FaTruck className="feature-icon" />
-          <h3>توصيل مجاني</h3>
-          <p>للطلبات التي تزيد عن 500 جنيه. نصل لباب منزلك.</p>
+          <h3>توصيل سريع</h3>
+          <p>نوصلك لأقرب مكان تحبه في أسرع وقت .</p>
         </div>
         <div className="feature-card">
           <FaAward className="feature-icon" />
