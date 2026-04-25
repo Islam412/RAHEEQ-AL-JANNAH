@@ -33,7 +33,7 @@ const Products = () => {
       oldPrice: '400', 
       image: '/images/banan.png', 
       description: 'عسل مستخلص من رحيق أزهار الموز، غني بالبوتاسيوم والفيتامينات.', 
-      badge: null,
+      badge: 'غني بالحديد',
       category: 'عسل فواكه'
     },
     { 

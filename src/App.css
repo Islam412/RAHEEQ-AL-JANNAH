@@ -6091,3 +6091,78 @@ label .required-star {
 }
 
 
+/* ============================================
+   Weight Selector - اختيار الوزن
+   ============================================ */
+
+.weight-selector {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 15px;
+}
+
+.weight-selector label {
+  display: block;
+  color: #d4a017;
+  margin-bottom: 0.8rem;
+  font-weight: bold;
+}
+
+.weight-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.weight-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.8rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.weight-btn:hover {
+  background: rgba(212, 160, 23, 0.15);
+  border-color: #d4a017;
+  transform: translateY(-2px);
+}
+
+.weight-btn.active {
+  background: linear-gradient(135deg, #d4a017, #ffc107);
+  color: #000;
+  border-color: #d4a017;
+  box-shadow: 0 0 15px rgba(212, 160, 23, 0.3);
+}
+
+.weight-info {
+  margin: 0.5rem 0;
+}
+
+.weight-badge {
+  display: inline-block;
+  background: rgba(212, 160, 23, 0.15);
+  color: #d4a017;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* للشاشات الصغيرة */
+@media (max-width: 480px) {
+  .weight-options {
+    flex-direction: column;
+  }
+  
+  .weight-btn {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+  }
+}
