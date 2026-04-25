@@ -72,11 +72,11 @@ const Cart = () => {
   const shippingCost = 130;
   const finalTotal = getCartTotal() + shippingCost;
 
-  // إنشاء رسالة الطلب للتنسيق النصي (واتساب) - بالجنيه المصري
+  // إنشاء رسالة الطلب للتنسيق النصي (واتساب)
   const createOrderMessageText = () => {
     const orderDate = new Date().toLocaleString('ar-EG');
     const productsList = cartItems.map(item => 
-      `• ${item.name} × ${item.quantity} = ${(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م`
+      `• ${item.name} (${item.weightType === 'halfKg' ? 'نصف كيلو' : 'كيلو'}) × ${item.quantity} = ${(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م`
     ).join('\n');
     
     let message = `🛍️ *طلب جديد من موقع رحيق الجنة*\n\n`;
@@ -86,7 +86,7 @@ const Cart = () => {
     message += `📦 *المنتجات:*\n${productsList}\n\n`;
     message += `━━━━━━━━━━━━━━━━━━━━\n`;
     message += `💵 *المجموع الفرعي:* ${getCartTotal().toFixed(2)} ج.م\n`;
-    message += `🚚 *الشحن:* ${shippingCost} ج.م (ثابت)\n`;
+    message += `🚚 *الشحن:* ${shippingCost} ج.م\n`;
     message += `💰 *الإجمالي:* ${finalTotal.toFixed(2)} ج.م\n\n`;
     message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
     message += `👤 *معلومات العميل:*\n`;
@@ -209,7 +209,7 @@ const Cart = () => {
   // ============================================
   const sendToEmailAuto = async (imageUrl) => {
     const productsText = cartItems.map(item => 
-      `${item.name} × ${item.quantity} = ${(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م`
+      `${item.name} (${item.weightType === 'halfKg' ? 'نصف كيلو' : 'كيلو'}) × ${item.quantity} = ${(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م`
     ).join('\n');
     
     const templateParams = {
@@ -221,7 +221,7 @@ const Cart = () => {
       payment_method: paymentMethod === 'cash' ? 'الدفع عند الاستلام' : 'إنستا باي',
       products_list: productsText,
       subtotal: `${getCartTotal().toFixed(2)} ج.م`,
-      shipping: `${shippingCost} ج.م (ثابت)`,
+      shipping: `${shippingCost} ج.م`,
       total: `${finalTotal.toFixed(2)} ج.م`,
       instapay_details: paymentMethod === 'instapay' ? 'true' : 'false',
       sender_name: instapayInfo.senderName || 'غير متاح',
@@ -442,90 +442,111 @@ const Cart = () => {
     <div className="cart-page">
       <h2>سلة <span className="gold">التسوق</span></h2>
       
-      <div className="cart-progress">
-        <div className={`progress-step ${cartItems.length > 0 ? 'active' : ''}`}>
-          <span>1</span>
-          <p>السلة</p>
+      {/* شريط التقدم */}
+      <div className="checkout-steps">
+        <div className={`step ${cartItems.length > 0 ? 'active' : ''}`}>
+          <div className="step-number">1</div>
+          <div className="step-label">السلة</div>
         </div>
-        <div className="progress-line"></div>
-        <div className={`progress-step ${showCheckoutModal ? 'active' : ''}`}>
-          <span>2</span>
-          <p>الدفع</p>
+        <div className="step-line"></div>
+        <div className={`step ${showCheckoutModal ? 'active' : ''}`}>
+          <div className="step-number">2</div>
+          <div className="step-label">الدفع</div>
         </div>
-        <div className="progress-line"></div>
-        <div className={`progress-step ${orderComplete ? 'active' : ''}`}>
-          <span>3</span>
-          <p>إتمام</p>
+        <div className="step-line"></div>
+        <div className={`step ${orderComplete ? 'active' : ''}`}>
+          <div className="step-number">3</div>
+          <div className="step-label">إتمام</div>
         </div>
       </div>
 
       <div className="cart-container">
+        {/* قسم المنتجات */}
         <div className="cart-items">
           <div className="cart-header">
-            <p>المنتج</p>
-            <p>السعر</p>
-            <p>الكمية</p>
-            <p>الإجمالي</p>
+            <div>المنتج</div>
+            <div>الوزن</div>
+            <div>السعر</div>
+            <div>الكمية</div>
+            <div>الإجمالي</div>
+            <div>حذف</div>
           </div>
+          
           {cartItems.map((item) => (
             <div className="cart-item" key={item.id}>
               <div className="cart-item-product">
                 <img src={item.image} alt={item.name} />
                 <div className="cart-item-details">
-                  <h3>{item.name}</h3>
-                  <p className="cart-item-category">عسل طبيعي</p>
+                  <h4>{item.name}</h4>
+                  {/* <span className="cart-item-category">🍯 عسل طبيعي نقي</span> */}
                 </div>
               </div>
-              <p className="cart-item-price">{item.price} ج.م</p>
+              <div className="cart-item-weight">
+                ⚖️ {item.weightType === 'halfKg' ? 'نصف كيلو' : 'كيلو'}
+              </div>
+              <div className="cart-item-price">
+                {item.price} ج.م
+              </div>
               <div className="cart-item-quantity">
                 <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
                 <span>{item.quantity}</span>
                 <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
               </div>
               <div className="cart-item-total">
-                <p>{(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م</p>
+                {(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م
+              </div>
+              <div className="cart-item-remove">
                 <button onClick={() => removeFromCart(item.id)} className="remove-btn">
-                  <FaTrash />
+                  🗑️
                 </button>
               </div>
             </div>
           ))}
         </div>
         
+        {/* ملخص الطلب */}
         <div className="cart-summary">
-          <h3>ملخص الطلب</h3>
-          <div className="summary-row">
-            <span>المجموع الفرعي:</span>
-            <span>{getCartTotal().toFixed(2)} ج.م</span>
-          </div>
-          <div className="summary-row">
-            <span>الشحن:</span>
-            <span>{shippingCost} ج.م (ثابت)</span>
-          </div>
-          <div className="summary-row discount">
-            <span>الخصم:</span>
-            <span>0.00 ج.م</span>
-          </div>
-          <div className="summary-row total">
-            <span>الإجمالي:</span>
-            <span>{finalTotal.toFixed(2)} ج.م</span>
+          <h3>📋 ملخص الطلب</h3>
+          
+          <div className="summary-details">
+            <div className="summary-row">
+              <span>المجموع الفرعي</span>
+              <span>{getCartTotal().toFixed(2)} ج.م</span>
+            </div>
+            <div className="summary-row">
+              <span>تكلفة الشحن</span>
+              <span>{shippingCost} ج.م</span>
+            </div>
+            <div className="summary-row discount">
+              <span>الخصم</span>
+              <span>0.00 ج.م</span>
+            </div>
+            
+            <div className="summary-divider"></div>
+            
+            <div className="summary-row total">
+              <span>الإجمالي النهائي</span>
+              <span>{finalTotal.toFixed(2)} ج.م</span>
+            </div>
           </div>
           
-          {/* إشعار ثابت بتكلفة الشحن */}
-          <div className="free-shipping-notice">
-            🚚 تكلفة الشحن ثابتة {shippingCost} ج.م لمحافظة القاهرة والجيزة - وباقي محافظات مصر حسب المحافظة
+          <div className="shipping-info-card">
+            <p>🚚 <strong>معلومات الشحن</strong></p>
+            <p>تكلفة الشحن {shippingCost} ج.م لجميع محافظات مصر</p>
+            <small>⚠️ الحد الأدنى للطلب 100 ج.م</small>
           </div>
           
           <button className="btn-checkout" onClick={handleCheckout}>
-            إتمام الشراء
+            💳 إتمام الشراء
           </button>
+          
           <Link to="/products" className="continue-shopping">
             ← متابعة التسوق
           </Link>
         </div>
       </div>
 
-      {/* مودال الدفع */}
+      {/* مودال الدفع - باقي الكود كما هو */}
       {showCheckoutModal && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -545,7 +566,7 @@ const Cart = () => {
                   <div className="order-summary">
                     {cartItems.map(item => (
                       <div key={item.id} className="order-item">
-                        <span>{item.name} × {item.quantity}</span>
+                        <span>{item.name} ({item.weightType === 'halfKg' ? 'نصف كيلو' : 'كيلو'}) × {item.quantity}</span>
                         <span>{(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م</span>
                       </div>
                     ))}

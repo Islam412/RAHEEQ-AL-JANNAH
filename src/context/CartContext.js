@@ -25,12 +25,17 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     setCartItems(prev => {
-      const existing = prev.find(item => item.id === product.id);
+      // البحث عن منتج مطابق (نفس الاسم + نفس الوزن)
+      const existing = prev.find(item => 
+        item.id === product.id && item.weightType === product.weightType
+      );
+      
       if (existing) {
-        const updated = prev.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        return prev.map(item =>
+          item.id === product.id && item.weightType === product.weightType
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
-        return updated;
       }
       return [...prev, { ...product, quantity: 1 }];
     });

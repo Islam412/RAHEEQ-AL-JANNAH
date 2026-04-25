@@ -117,6 +117,7 @@ const ProductDetails = () => {
   const currentPrice = selectedWeight === 'kg' ? product.priceKg : product.priceHalfKg;
   const currentOldPrice = selectedWeight === 'kg' ? product.oldPriceKg : product.oldPriceHalfKg;
   const weightLabel = selectedWeight === 'kg' ? 'كيلو (1000 جم)' : 'نصف كيلو (500 جم)';
+  const weightType = selectedWeight === 'kg' ? 'كيلو' : 'نصف كيلو';
 
   if (!product) {
     return <div className="not-found">المنتج غير موجود</div>;
@@ -129,11 +130,14 @@ const ProductDetails = () => {
       price: currentPrice,
       oldPrice: currentOldPrice,
       weight: weightLabel,
-      selectedWeight: selectedWeight
+      weightType: weightType
     };
+    
     for (let i = 0; i < quantity; i++) {
       addToCart(productToAdd);
     }
+    
+    alert(`✅ تم إضافة ${quantity} × ${weightLabel} من ${product.name} إلى السلة`);
     navigate('/cart');
   };
 
@@ -158,7 +162,7 @@ const ProductDetails = () => {
   const handleShareProduct = async () => {
     const shareData = {
       title: product.name,
-      text: product.description,
+      text: `${product.name} - ${weightLabel} بسعر ${currentPrice} ج.م`,
       url: window.location.href,
     };
 
@@ -171,7 +175,7 @@ const ProductDetails = () => {
       }
     } else {
       try {
-        await navigator.clipboard.writeText(window.location.href);
+        await navigator.clipboard.writeText(`${product.name} - ${weightLabel} بسعر ${currentPrice} ج.م\n${window.location.href}`);
         alert('تم نسخ رابط المنتج! يمكنك مشاركته الآن 📋');
       } catch (err) {
         alert('حدث خطأ، حاول مرة أخرى');
@@ -204,7 +208,7 @@ const ProductDetails = () => {
           
           {/* اختيار الوزن */}
           <div className="weight-selector">
-            <label>اختر الوزن:</label>
+            <label>⚖️ اختر الوزن:</label>
             <div className="weight-options">
               <button 
                 className={`weight-btn ${selectedWeight === 'kg' ? 'active' : ''}`}
@@ -228,7 +232,7 @@ const ProductDetails = () => {
           </div>
           
           <div className="weight-info">
-            <span className="weight-badge">{weightLabel}</span>
+            <span className="weight-badge">⚖️ الوزن المختار: {weightLabel}</span>
           </div>
           
           <p className="description">{product.description}</p>
@@ -257,7 +261,7 @@ const ProductDetails = () => {
           </div>
 
           <button className="btn-add-to-cart" onClick={handleAddToCart}>
-            أضف إلى السلة - {(parseFloat(currentPrice) * quantity).toFixed(2)} ج.م
+            🛒 أضف إلى السلة - {(parseFloat(currentPrice) * quantity).toFixed(2)} ج.م
           </button>
 
           <div className="shipping-info">
