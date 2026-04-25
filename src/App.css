@@ -474,10 +474,12 @@ nav a:hover {
 }
 
 .product-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 400px;
+  display: block;
+  margin: 0 auto;
 }
 
 .product-card:hover .product-img img {
@@ -5980,5 +5982,59 @@ label .required-star {
   
   .about-img img:first-child {
     height: 260px;
+  }
+}
+
+
+/* صورة المنتج - متجاوب مع جميع الشاشات */
+.product-img {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-img img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover .product-img img {
+  transform: scale(1.05);
+}
+
+/* للشاشات المتوسطة */
+@media (max-width: 1024px) {
+  .product-img img {
+    max-height: 350px;
+  }
+}
+
+/* للشاشات الصغيرة (تابلت) */
+@media (max-width: 768px) {
+  .product-img img {
+    max-height: 280px;
+  }
+}
+
+/* للجوال */
+@media (max-width: 576px) {
+  .product-img img {
+    max-height: 220px;
+  }
+}
+
+/* للجوال الصغير جداً */
+@media (max-width: 380px) {
+  .product-img img {
+    max-height: 180px;
   }
 }
