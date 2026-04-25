@@ -513,7 +513,7 @@ const Cart = () => {
           
           {/* إشعار ثابت بتكلفة الشحن */}
           <div className="free-shipping-notice">
-            🚚 تكلفة الشحن ثابتة {shippingCost} ج.م لجميع محافظات مصر
+            🚚 تكلفة الشحن ثابتة {shippingCost} ج.م لمحافظة القاهرة والجيزة - وباقي محافظات مصر حسب المحافظة
           </div>
           
           <button className="btn-checkout" onClick={handleCheckout}>
