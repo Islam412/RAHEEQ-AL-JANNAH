@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaTrash, FaShoppingCart, FaMoneyBillWave, FaCheckCircle, FaCopy, FaCheck, FaMobileAlt, FaDownload, FaEye, FaUpload, FaImage, FaTimes, FaExclamationTriangle, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import { FaShoppingCart, FaMoneyBillWave, FaCheckCircle, FaCopy, FaCheck, FaMobileAlt, FaDownload, FaEye, FaUpload, FaImage, FaTimes, FaExclamationTriangle, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import emailjs from '@emailjs/browser';
 
