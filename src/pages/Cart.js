@@ -153,13 +153,13 @@ const Cart = () => {
     const url = `https://api.green-api.com/waInstance${GREEN_API_ID}/sendMessage/${GREEN_API_TOKEN}`;
     
     try {
-      const _response = await fetch(url, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chatId: chatId, message: message })
       });
       
-      const data = await _response.json();
+      const data = await response.json();
       
       if (data.idMessage) {
         console.log('✅ تم إرسال الطلب إلى واتساب بنجاح');
@@ -181,7 +181,7 @@ const Cart = () => {
     const url = `https://api.green-api.com/waInstance${GREEN_API_ID}/sendFileByUrl/${GREEN_API_TOKEN}`;
     
     try {
-      const _response = await fetch(url, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -192,7 +192,7 @@ const Cart = () => {
         })
       });
       
-      const data = await _response.json();
+      const data = await response.json();
       
       if (data.idMessage) {
         console.log('✅ تم إرسال صورة الإيصال بنجاح');
@@ -469,7 +469,7 @@ const Cart = () => {
             <div>السعر</div>
             <div>الكمية</div>
             <div>الإجمالي</div>
-            <div>حذف</div>
+            <div></div>
           </div>
           
           {cartItems.map((item) => (
