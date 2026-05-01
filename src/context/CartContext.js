@@ -18,17 +18,21 @@ export const CartProvider = ({ children }) => {
     return [];
   });
 
-  // تنظيف المنتجات القديمة وتحسينها
+  // تنظيف المنتجات القديمة وتحسينها (مرة واحدة فقط)
   useEffect(() => {
-    const needsFix = cartItems.some(item => !item.weightType || !item.uniqueId);
-    if (needsFix && cartItems.length > 0) {
-      const fixedItems = cartItems.map((item, index) => ({
-        ...item,
-        weightType: item.weightType === 'halfKg' ? 'نصف كيلو' : (item.weightType || 'كيلو'),
-        uniqueId: item.uniqueId || `${item.id}_${item.weightType || 'كيلو'}_${Date.now()}_${index}`
-      }));
-      setCartItems(fixedItems);
-      localStorage.setItem('cartItems', JSON.stringify(fixedItems));
+    const hasRun = localStorage.getItem('cartCleanupDone');
+    if (!hasRun) {
+      const needsFix = cartItems.some(item => !item.weightType || !item.uniqueId);
+      if (needsFix && cartItems.length > 0) {
+        const fixedItems = cartItems.map((item, index) => ({
+          ...item,
+          weightType: item.weightType === 'halfKg' ? 'نصف كيلو' : (item.weightType || 'كيلو'),
+          uniqueId: item.uniqueId || `${item.id}_${item.weightType || 'كيلو'}_${Date.now()}_${index}`
+        }));
+        setCartItems(fixedItems);
+        localStorage.setItem('cartItems', JSON.stringify(fixedItems));
+      }
+      localStorage.setItem('cartCleanupDone', 'true');
     }
   }, []);
 
@@ -92,6 +96,7 @@ export const CartProvider = ({ children }) => {
   const clearCart = () => {
     setCartItems([]);
     localStorage.removeItem('cartItems');
+    localStorage.removeItem('cartCleanupDone');
   };
 
   return (
