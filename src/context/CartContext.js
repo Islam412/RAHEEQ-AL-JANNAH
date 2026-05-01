@@ -34,6 +34,7 @@ export const CartProvider = ({ children }) => {
       }
       localStorage.setItem('cartCleanupDone', 'true');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // حفظ المنتجات في localStorage كلما تغيرت
