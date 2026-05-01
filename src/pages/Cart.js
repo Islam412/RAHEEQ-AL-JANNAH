@@ -532,7 +532,6 @@ const Cart = () => {
           <div className="shipping-info-card">
             <p>🚚 <strong>معلومات الشحن</strong></p>
             <p>تكلفة الشحن {shippingCost} ج.م لجميع محافظات مصر</p>
-            <small>⚠️ الحد الأدنى للطلب 100 ج.م</small>
           </div>
           
           <button className="btn-checkout" onClick={handleCheckout}>

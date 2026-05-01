@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaLeaf, FaAward, FaHeart, FaShieldAlt } from 'react-icons/fa';  // FaTruck اتحذف من هنا
+import { FaLeaf, FaAward, FaHeart, FaShieldAlt } from 'react-icons/fa';
 import { GiBee, GiFlowerPot } from 'react-icons/gi';
 
 const About = () => {
