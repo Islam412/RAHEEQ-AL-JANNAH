@@ -11,7 +11,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Cart from './pages/Cart';
 import OrderSuccess from './pages/OrderSuccess';
-import SavedProducts from './pages/SavedProducts'; // ✅ أضف هذا السطر
+import SavedProducts from './pages/SavedProducts';
 import './App.css';
 
 // EmailJS Public Key - من حسابك
@@ -22,7 +22,6 @@ const ScrollToTop = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     
-    // Trigger reveal immediately after scroll reset for new pages
     setTimeout(() => {
       window.dispatchEvent(new Event('scroll'));
     }, 100);
@@ -56,7 +55,12 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <Router
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <ScrollToTop />
       <CartProvider>
         <div className="app">
@@ -70,7 +74,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/order-success" element={<OrderSuccess />} />
-              <Route path="/saved" element={<SavedProducts />} /> {/* ✅ أضف هذا السطر */}
+              <Route path="/saved" element={<SavedProducts />} />
             </Routes>
           </main>
           <Footer />

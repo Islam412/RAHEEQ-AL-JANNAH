@@ -18,6 +18,20 @@ export const CartProvider = ({ children }) => {
     return [];
   });
 
+  // تنظيف المنتجات القديمة وتحسينها
+  useEffect(() => {
+    const needsFix = cartItems.some(item => !item.weightType || !item.uniqueId);
+    if (needsFix && cartItems.length > 0) {
+      const fixedItems = cartItems.map((item, index) => ({
+        ...item,
+        weightType: item.weightType === 'halfKg' ? 'نصف كيلو' : (item.weightType || 'كيلو'),
+        uniqueId: item.uniqueId || `${item.id}_${item.weightType || 'كيلو'}_${Date.now()}_${index}`
+      }));
+      setCartItems(fixedItems);
+      localStorage.setItem('cartItems', JSON.stringify(fixedItems));
+    }
+  }, []);
+
   // حفظ المنتجات في localStorage كلما تغيرت
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -37,21 +51,32 @@ export const CartProvider = ({ children }) => {
             : item
         );
       }
-      return [...prev, { ...product, quantity: 1 }];
+      // إضافة منتج جديد مع مفتاح فريد
+      return [...prev, { 
+        ...product, 
+        quantity: 1,
+        uniqueId: `${product.id}_${product.weightType}_${Date.now()}_${Math.random()}`
+      }];
     });
   };
 
-  const removeFromCart = (productId) => {
-    setCartItems(prev => prev.filter(item => item.id !== productId));
+  const removeFromCart = (productId, weightType) => {
+    setCartItems(prev => prev.filter(item => 
+      !(item.id === productId && item.weightType === weightType)
+    ));
   };
 
-  const updateQuantity = (productId, quantity) => {
+  const updateQuantity = (productId, quantity, weightType) => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      removeFromCart(productId, weightType);
       return;
     }
     setCartItems(prev =>
-      prev.map(item => (item.id === productId ? { ...item, quantity } : item))
+      prev.map(item => 
+        (item.id === productId && item.weightType === weightType) 
+          ? { ...item, quantity } 
+          : item
+      )
     );
   };
 

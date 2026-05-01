@@ -76,7 +76,7 @@ const Cart = () => {
   const createOrderMessageText = () => {
     const orderDate = new Date().toLocaleString('ar-EG');
     const productsList = cartItems.map(item => 
-      `• ${item.name} (${item.weightType === 'halfKg' ? 'نصف كيلو' : 'كيلو'}) × ${item.quantity} = ${(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م`
+      `• ${item.name} (${item.weightType === 'halfKg' ? 'نصف كيلو' : (item.weightType || 'كيلو')}) × ${item.quantity} = ${(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م`
     ).join('\n');
     
     let message = `🛍️ *طلب جديد من موقع رحيق الجنة*\n\n`;
@@ -209,7 +209,7 @@ const Cart = () => {
   // ============================================
   const sendToEmailAuto = async (imageUrl) => {
     const productsText = cartItems.map(item => 
-      `${item.name} (${item.weightType === 'halfKg' ? 'نصف كيلو' : 'كيلو'}) × ${item.quantity} = ${(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م`
+      `${item.name} (${item.weightType === 'halfKg' ? 'نصف كيلو' : (item.weightType || 'كيلو')}) × ${item.quantity} = ${(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م`
     ).join('\n');
     
     const templateParams = {
@@ -473,30 +473,29 @@ const Cart = () => {
           </div>
           
           {cartItems.map((item) => (
-            <div className="cart-item" key={item.id}>
+            <div className="cart-item" key={item.uniqueId || `${item.id}_${item.weightType}`}>
               <div className="cart-item-product">
                 <img src={item.image} alt={item.name} />
                 <div className="cart-item-details">
                   <h4>{item.name}</h4>
-                  {/* <span className="cart-item-category">🍯 عسل طبيعي نقي</span> */}
                 </div>
               </div>
               <div className="cart-item-weight">
-                ⚖️ {item.weightType === 'halfKg' ? 'نصف كيلو' : 'كيلو'}
+                ⚖️ {item.weightType === 'halfKg' ? 'نصف كيلو' : (item.weightType || 'كيلو')}
               </div>
               <div className="cart-item-price">
                 {item.price} ج.م
               </div>
               <div className="cart-item-quantity">
-                <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                <button onClick={() => updateQuantity(item.id, item.quantity - 1, item.weightType)}>-</button>
                 <span>{item.quantity}</span>
-                <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                <button onClick={() => updateQuantity(item.id, item.quantity + 1, item.weightType)}>+</button>
               </div>
               <div className="cart-item-total">
                 {(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م
               </div>
               <div className="cart-item-remove">
-                <button onClick={() => removeFromCart(item.id)} className="remove-btn">
+                <button onClick={() => removeFromCart(item.id, item.weightType)} className="remove-btn">
                   🗑️
                 </button>
               </div>
@@ -546,7 +545,7 @@ const Cart = () => {
         </div>
       </div>
 
-      {/* مودال الدفع - باقي الكود كما هو */}
+      {/* مودال الدفع */}
       {showCheckoutModal && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -566,7 +565,7 @@ const Cart = () => {
                   <div className="order-summary">
                     {cartItems.map(item => (
                       <div key={item.id} className="order-item">
-                        <span>{item.name} ({item.weightType === 'halfKg' ? 'نصف كيلو' : 'كيلو'}) × {item.quantity}</span>
+                        <span>{item.name} ({item.weightType === 'halfKg' ? 'نصف كيلو' : (item.weightType || 'كيلو')}) × {item.quantity}</span>
                         <span>{(parseFloat(item.price) * item.quantity).toFixed(2)} ج.م</span>
                       </div>
                     ))}
