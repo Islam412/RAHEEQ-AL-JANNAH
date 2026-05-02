@@ -11,13 +11,6 @@ const ProductDetails = () => {
   const [isSaved, setIsSaved] = useState(false);
   const [selectedWeight, setSelectedWeight] = useState('kg'); // 'kg' أو 'halfKg'
 
-  // تحميل حالة الحفظ من localStorage
-  useEffect(() => {
-    const savedProducts = JSON.parse(localStorage.getItem('savedProducts') || '[]');
-    const isProductSaved = savedProducts.some(item => item.id === parseInt(id));
-    setIsSaved(isProductSaved);
-  }, [id]);
-
   // أسعار المنتجات (كيلو - نصف كيلو)
   const products = {
     1: { 
@@ -119,12 +112,20 @@ const ProductDetails = () => {
   const weightLabel = selectedWeight === 'kg' ? 'كيلو (1000 جم)' : 'نصف كيلو (500 جم)';
   const weightType = selectedWeight === 'kg' ? 'كيلو' : 'نصف كيلو';
 
+  // تحميل حالة الحفظ من localStorage (مع مراعاة الوزن)
+  useEffect(() => {
+    const savedProducts = JSON.parse(localStorage.getItem('savedProducts') || '[]');
+    const isProductSaved = savedProducts.some(item => 
+      item.id === parseInt(id) && item.weightType === weightType
+    );
+    setIsSaved(isProductSaved);
+  }, [id, weightType]);
+
   if (!product) {
     return <div className="not-found">المنتج غير موجود</div>;
   }
 
   const handleAddToCart = () => {
-    // إنشاء نسخة من المنتج مع الوزن والسعر المختار
     const productToAdd = {
       ...product,
       price: currentPrice,
@@ -141,21 +142,42 @@ const ProductDetails = () => {
     navigate('/cart');
   };
 
+  // ✅ دالة حفظ المنتج مع السعر والوزن
   const handleSaveProduct = () => {
     const savedProducts = JSON.parse(localStorage.getItem('savedProducts') || '[]');
     
+    // إنشاء نسخة كاملة من المنتج مع السعر والوزن الحالي
+    const productToSave = {
+      ...product,
+      price: currentPrice,
+      oldPrice: currentOldPrice,
+      weight: weightLabel,
+      weightType: weightType,
+      savedAt: new Date().toISOString()
+    };
+    
     if (!isSaved) {
-      if (!savedProducts.find(item => item.id === product.id)) {
-        savedProducts.push(product);
+      // التحقق من عدم وجود نفس المنتج بنفس الوزن
+      const exists = savedProducts.some(item => 
+        item.id === product.id && item.weightType === weightType
+      );
+      
+      if (!exists) {
+        savedProducts.push(productToSave);
         localStorage.setItem('savedProducts', JSON.stringify(savedProducts));
+        setIsSaved(true);
+        alert(`✅ تم حفظ ${weightLabel} من ${product.name} في المفضلة`);
+      } else {
+        alert(`⚠️ ${product.name} (${weightLabel}) موجود بالفعل في المفضلة`);
       }
-      setIsSaved(true);
-      alert(`✅ تم حفظ ${product.name} في المفضلة`);
     } else {
-      const updatedProducts = savedProducts.filter(item => item.id !== product.id);
+      // إزالة المنتج من المفضلة (مع مراعاة الوزن)
+      const updatedProducts = savedProducts.filter(item => 
+        !(item.id === product.id && item.weightType === weightType)
+      );
       localStorage.setItem('savedProducts', JSON.stringify(updatedProducts));
       setIsSaved(false);
-      alert(`❌ تم إزالة ${product.name} من المفضلة`);
+      alert(`❌ تم إزالة ${weightLabel} من ${product.name} من المفضلة`);
     }
   };
 
@@ -265,8 +287,9 @@ const ProductDetails = () => {
           </button>
 
           <div className="shipping-info">
-            <div><FaTruck /> توصيل مجاني للطلبات فوق 200 جنيه</div>
+            <div>🍯 عسل طبيعي 100%</div>
             <div><FaShieldAlt /> ضمان الجودة 100%</div>
+            <div><FaTruck /> توصيل امن وسريع</div>
           </div>
         </div>
       </div>
