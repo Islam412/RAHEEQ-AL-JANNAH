@@ -288,6 +288,7 @@ const ProductDetails = () => {
 
           <div className="shipping-info">
             <div>🍯 عسل طبيعي 100%</div>
+            <div>🍯 أجود أنواع العسل</div>
             <div><FaShieldAlt /> ضمان الجودة 100%</div>
             <div><FaTruck /> توصيل امن وسريع</div>
           </div>
