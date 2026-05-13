@@ -32,16 +32,16 @@ The project leverages a modern frontend stack to ensure high performance, scalab
 ## Screenshots
 
 ### Demo Home
-  - ![Demo Home](/home.png)
+  - ![Demo Home](public/home.png)
 
 ### Demo Product
-  - ![Demo Product](/product.png)
+  - ![Demo Product](public/product.png)
 
 ### Demo Product Details
-  - ![Demo Product Details](/productdetails.png)
+  - ![Demo Product Details](public/productdetails.png)
 
 ### Project Video Demo
-  - [▶️ Watch Project Video](/video.mp4)
+  - [▶️ Watch Project Video](public/video.mp4)
 
 ---
 
